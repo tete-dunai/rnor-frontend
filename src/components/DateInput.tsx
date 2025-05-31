@@ -132,30 +132,6 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
     setYearInput(newYear.toString());
   };
 
-  const handleCalendarWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    // Check if we're scrolling over the year section
-    const target = e.target as Element;
-    const yearSection = target.closest('.year-section');
-    
-    if (yearSection) {
-      // Year scrolling - faster
-      if (e.deltaY > 0) {
-        handleYearNavigation('next');
-      } else {
-        handleYearNavigation('prev');
-      }
-    } else {
-      // Month scrolling - slower
-      if (e.deltaY > 0) {
-        handleMonthNavigation('next');
-      } else {
-        handleMonthNavigation('prev');
-      }
-    }
-  };
 
   return (
     <div>
@@ -184,7 +160,7 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="end">
-            <div className="p-3" onWheel={handleCalendarWheel}>
+            <div className="p-3">
               <div className="year-section flex items-center justify-between mb-3 gap-2">
                 <Button
                   variant="outline"
