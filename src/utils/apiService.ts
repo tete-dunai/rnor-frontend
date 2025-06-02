@@ -3,8 +3,6 @@ interface CalculationRequest {
   departure: string;
   return: string;
   avg_days: number;
-  ctc: number;
-  passive_income: number;
 }
 
 interface FYData {
@@ -17,7 +15,7 @@ interface CalculationResponse {
   output: FYData[];
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://tetedunai.pythonanywhere.com/';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000';
 
 export const calculateRNORStatus = async (data: CalculationRequest): Promise<FYData[]> => {
   try {

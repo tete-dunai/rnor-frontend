@@ -132,35 +132,11 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
     setYearInput(newYear.toString());
   };
 
-  const handleCalendarWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    // Check if we're scrolling over the year section
-    const target = e.target as Element;
-    const yearSection = target.closest('.year-section');
-    
-    if (yearSection) {
-      // Year scrolling - faster
-      if (e.deltaY > 0) {
-        handleYearNavigation('next');
-      } else {
-        handleYearNavigation('prev');
-      }
-    } else {
-      // Month scrolling - slower
-      if (e.deltaY > 0) {
-        handleMonthNavigation('next');
-      } else {
-        handleMonthNavigation('prev');
-      }
-    }
-  };
 
   return (
     <div>
       <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1">
-        <CalendarIcon className={`w-4 h-4 ${label === 'Date of Return' ? 'text-yellow-500' : 'text-blue-500'}`} />
+        <CalendarIcon className={`w-4 h-4 ${label === 'Return to India' ? 'text-yellow-500' : label === 'Departure from India' ? 'text-[#8c8c8c]' : 'text-blue-500'}`} />
         {label}
       </label>
       <div className="relative">
@@ -170,7 +146,7 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
           onChange={handleInputChange}
           placeholder={placeholder || 'DD/MM/YYYY'}
           className={cn(
-            "w-full px-4 py-3 pr-12 rounded-lg border text-sm focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all bg-white",
+            "w-full px-4 py-3 pr-12 rounded-lg border text-sm focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white",
             error ? "border-red-300" : "border-gray-200"
           )}
         />
@@ -184,7 +160,7 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="end">
-            <div className="p-3" onWheel={handleCalendarWheel}>
+            <div className="p-3">
               <div className="year-section flex items-center justify-between mb-3 gap-2">
                 <Button
                   variant="outline"
