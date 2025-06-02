@@ -9,11 +9,11 @@ const StatusResults = ({ results }: StatusResultsProps) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'RNOR':
-        return 'bg-[#7C5CFF] text-white shadow-lg shadow-purple-200 border-2 border-[#7C5CFF]';
+        return 'bg-[#1ee1c2] text-white shadow-lg shadow-cyan-200 border-2 border-[#1ee1c2]';
       case 'NR':
-        return 'bg-[#ff6b6b] text-white shadow-lg shadow-red-200 border-2 border-[#ff6b6b]';
+        return 'bg-[#8c8c8c] text-white shadow-lg shadow-gray-300 border-2 border-[#8c8c8c]';
       case 'ROR':
-        return 'bg-[#ffc107] text-white shadow-lg shadow-yellow-400 border-2 border-[#ffc107]';
+        return 'bg-[#fdb04f] text-white shadow-lg shadow-orange-200 border-2 border-[#fdb04f]';
       default:
         return 'bg-gray-400 text-white';
     }
@@ -21,15 +21,19 @@ const StatusResults = ({ results }: StatusResultsProps) => {
 
   const getSpecialStyling = (status: string) => {
     if (status === 'RNOR') {
-      return 'transform hover:scale-110 transition-all duration-300 relative z-10 text-lg font-bold tracking-wide shadow-2xl hover:shadow-emerald-300';
+      return 'transform hover:scale-105 transition-all duration-300 relative z-10 text-lg font-bold tracking-wide shadow-md shadow-[#2EE3C680]';
     }
     return 'hover:scale-105 transition-all duration-200';
   };
 
+  const hasRNOR = results.some(r => r.status === 'RNOR');
+  const hasNR = results.some(r => r.status === 'NR');
+  const hasROR = results.some(r => r.status === 'ROR');
+
   return (
     <div className="w-full">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-4">
+        <h2 className="text-3xl font-bold text-[#1dc9a9] mb-4">
           RNOR Status Results
         </h2>
         <p className="text-gray-600">Financial year wise residential status calculation</p>
@@ -61,18 +65,24 @@ const StatusResults = ({ results }: StatusResultsProps) => {
       
       <div className="mt-8 text-center">
         <div className="flex justify-center gap-8 text-sm text-gray-700 flex-wrap">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-md bg-[#7C5CFF]"></div>
-            <span className="font-medium">RNOR - Resident but Not Ordinarily Resident</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-md bg-[#ff6b6b]"></div>
-            <span className="font-medium">NR - Non Resident</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-md bg-[#ffd66b]"></div>
-            <span className="font-medium">ROR - Resident and Ordinarily Resident</span>
-          </div>
+          {hasNR && (
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-md bg-[#8c8c8c]"></div>
+              <span className="font-medium">NR - Non Resident</span>
+            </div>
+          )}
+          {hasRNOR && (
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-md bg-[#1ee1c2]"></div>
+              <span className="font-medium">RNOR - Resident but Not Ordinarily Resident</span>
+            </div>
+          )}
+          {hasROR && (
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-md bg-[#fdb04f]"></div>
+              <span className="font-medium">ROR - Resident and Ordinarily Resident</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
