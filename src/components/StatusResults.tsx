@@ -30,16 +30,21 @@ const StatusResults = ({ results }: StatusResultsProps) => {
   const hasNR = results.some(r => r.status === 'NR');
   const hasROR = results.some(r => r.status === 'ROR');
 
+  const rnorYears = results.filter(r => r.status === 'RNOR').map(r => r.financialYear);
+  const rnorMessage = rnorYears.length > 0
+    ? `You qualify as RNOR for ${rnorYears.join(', ')}`
+    : 'You do NOT qualify as RNOR for any of the following years.';
+
   return (
     <div className="w-full">
-      <div className="text-center mb-8">
+      <div className="text-center mb-3">
         <h2 className="text-3xl font-bold text-[#1dc9a9] mb-4">
           RNOR Status Results
         </h2>
         <p className="text-gray-600">Financial year wise residential status calculation</p>
       </div>
 
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-7">
         <div className="flex flex-wrap justify-center gap-x-3 gap-y-2">
           {results.map((result, index) => (
             <div 
@@ -63,6 +68,10 @@ const StatusResults = ({ results }: StatusResultsProps) => {
         </div>
       </div>
       
+      <div className="text-center text-lg text-black font-bold tracking-wide mb-8 drop-shadow-sm">
+        {rnorMessage}
+      </div>
+
       <div className="mt-8 text-center">
         <div className="flex justify-center gap-8 text-sm text-gray-700 flex-wrap">
           {hasNR && (

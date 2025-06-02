@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { format } from 'date-fns';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -18,6 +18,21 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
   const [error, setError] = useState('');
   const [currentMonth, setCurrentMonth] = useState(value || new Date());
   const [yearInput, setYearInput] = useState(currentMonth.getFullYear().toString());
+  const [isOpen, setIsOpen] = useState(false);
+  const yearInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => {
+        const el = yearInputRef.current;
+        if (el) {
+          el.focus();
+          el.select();
+        }
+      }, 100); // slightly increased delay to ensure popover is mounted
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   const isValidDate = (day: number, month: number, year: number): boolean => {
     if (month < 1 || month > 12) return false;
@@ -72,7 +87,7 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
     }
 
     if (dateString.trim()) {
-      setError('Invalid format. Use DD/MM/YYYY or similar formats');
+      setError('Invalid format. Use DD MMM YYYY or CHOSE FROM CALENDAR');
     }
     return null;
   };
@@ -98,7 +113,7 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
   const handleCalendarSelect = (date: Date | undefined) => {
     if (date) {
       onChange(date);
-      setInputValue(format(date, 'dd/MM/yyyy'));
+      setInputValue('');
       setError('');
       setCurrentMonth(date);
     }
@@ -142,15 +157,15 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
       <div className="relative">
         <input
           type="text"
-          value={inputValue || (value ? format(value, 'dd/MM/yyyy') : '')}
-          onChange={handleInputChange}
-          placeholder={placeholder || 'DD/MM/YYYY'}
+          value={inputValue || (value ? format(value, 'dd MMM yyyy') : '')}
+          readOnly
+          placeholder={placeholder || 'DD MMM YYYY'}
           className={cn(
-            "w-full px-4 py-3 pr-12 rounded-lg border text-sm focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white",
+            "w-full px-4 py-3 pr-12 rounded-lg border text-sm focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white cursor-pointer",
             error ? "border-red-300" : "border-gray-200"
           )}
         />
-        <Popover>
+        <Popover open={isOpen} onOpenChange={setIsOpen}>
           <PopoverTrigger asChild>
             <Button
               variant="ghost"
@@ -159,7 +174,24 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
               <CalendarIcon className="h-4 w-4 text-gray-500" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="end">
+          <PopoverContent
+            className="w-auto p-0"
+            align="end"
+            onKeyDown={(e) => {
+              const active = document.activeElement;
+              if (active?.tagName === 'INPUT') return;
+
+              if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (e.key === 'ArrowLeft') handleMonthNavigation('prev');
+                else if (e.key === 'ArrowRight') handleMonthNavigation('next');
+                else if (e.key === 'ArrowUp') handleYearNavigation('prev');
+                else if (e.key === 'ArrowDown') handleYearNavigation('next');
+              }
+            }}
+          >
             <div className="p-3">
               <div className="year-section flex items-center justify-between mb-3 gap-2">
                 <Button
@@ -168,16 +200,28 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
                   onClick={() => handleYearNavigation('prev')}
                   className="h-8"
                 >
-                  <ChevronLeft className="h-4 w-4" />
+                  <ChevronUp className="h-4 w-4" />
                 </Button>
                 
                 <input
                   type="number"
                   value={yearInput}
                   onChange={handleYearChange}
-                  className="w-20 text-center border rounded px-2 py-1 text-base"
+                  ref={yearInputRef}
+                  className="w-20 text-center border border-[#25e3c0] rounded-full px-2 py-1 text-base text-[#1a1e29] focus:ring-2 focus:ring-[#25e3c0] focus:outline-none transition-all"
                   min="1900"
                   max="2100"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setTimeout(() => {
+                        const gridcells = document.querySelectorAll('[role="gridcell"]:not([aria-disabled="true"])');
+                        const firstVisibleDay = Array.from(gridcells).find(cell => cell.textContent?.trim() === '1') as HTMLElement;
+                        if (firstVisibleDay) firstVisibleDay.focus();
+                      }, 50);
+                    }
+                  }}
                 />
                 
                 <Button
@@ -186,7 +230,7 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
                   onClick={() => handleYearNavigation('next')}
                   className="h-8"
                 >
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronDown className="h-4 w-4" />
                 </Button>
               </div>
               <div className="flex items-center justify-between gap-2 mt-2">
@@ -222,7 +266,23 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
               components={{
                 Caption: () => null
               }}
+              classNames={{
+                day: "w-9 h-9 flex items-center justify-center rounded-md text-gray-400 \
+hover:bg-[#0f172a] hover:text-white \
+focus:outline-none focus:ring-0 \
+data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-md data-[selected]:font-medium"
+              }}
             />
+            <div className="flex justify-end p-3 pt-0">
+              <Button
+                variant="default"
+                size="sm"
+                onClick={() => setIsOpen(false)}
+                className="bg-[#25e3c0] text-black font-semibold px-6 py-2 rounded-full shadow-lg transition-all hover:bg-[#2be8c5] hover:shadow-xl"
+              >
+                Confirm
+              </Button>
+            </div>
           </PopoverContent>
         </Popover>
       </div>
