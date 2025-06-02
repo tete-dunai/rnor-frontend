@@ -114,11 +114,11 @@ const Index = () => {
           </div>
         )}
 
-        <div className="text-center mb-12">
+        <div className="text-center mb-6">
           <button
             onClick={handleCalculate}
             disabled={isCalculating}
-            className="bg-[#2EE3C6] text-black px-6 py-2 rounded-full font-semibold text-sm shadow-md hover:bg-[#29d1b6] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
+            className="bg-[#2EE3C6] text-black px-6 py-3 rounded-full font-bold text-base shadow-xl hover:bg-[#29d1b6] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
           >
             {isCalculating ? (
               <div className="flex items-center justify-center gap-2">
@@ -134,6 +134,24 @@ const Index = () => {
         {showResults && (
           <div ref={resultsRef}>
             <StatusResults results={results} />
+            <div className="text-center mt-6">
+              <p className="text-sm text-gray-700 mb-1">
+                These results are for educational purposes only and may not reflect your exact RNOR status.
+              </p>
+              <p className="text-sm text-gray-700">
+                Want help planning your move back to India?
+              </p>
+              <p className="text-sm text-gray-700 mb-4">
+                Let our cross-border experts guide you.
+              </p>
+              <a
+                href="https://www.turtlefinance.in/nris"
+                target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center justify-center bg-black text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-gray-800 transition-colors"
+              >
+                Talk to a Cross-Border Advisor
+              </a>
+            </div>
           </div>
         )}
       </div>
