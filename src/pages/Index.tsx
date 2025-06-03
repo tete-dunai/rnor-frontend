@@ -71,9 +71,6 @@ const Index = () => {
               RNOR Status Calculator
             </h1>
           </div>
-          <p className="text-base text-gray-600 mb-2">
-            Get an accurate estimate of your RNOR (Resident but Not Ordinarily Resident) status in seconds.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
