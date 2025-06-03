@@ -60,7 +60,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-6 pb-40 md:pb-6">
+    <div className="min-h-screen bg-white p-6 pb-5000 md:pb-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-3 mb-6">
