@@ -81,13 +81,13 @@ const Index = () => {
             label="Departure from India"
             value={departureDate}
             onChange={setDepartureDate}
-            placeholder="DD/MM/YYYY"
+            placeholder="DD MMM YYYY"
           />
           <DateInput
             label="Return to India"
             value={returnDate}
             onChange={setReturnDate}
-            placeholder="DD/MM/YYYY"
+            placeholder="DD MMM YYYY"
           />
           <div>
             <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1">
