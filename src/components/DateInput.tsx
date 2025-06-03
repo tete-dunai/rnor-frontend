@@ -20,16 +20,18 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
   const [yearInput, setYearInput] = useState(currentMonth.getFullYear().toString());
   const [isOpen, setIsOpen] = useState(false);
   const yearInputRef = useRef<HTMLInputElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
       const timer = setTimeout(() => {
         const el = yearInputRef.current;
-        if (el) {
-          el.focus();
-          el.select();
+        if (el) el.focus();
+
+        if (window.innerWidth < 768 && wrapperRef.current) {
+          wrapperRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 100); // slightly increased delay to ensure popover is mounted
+      }, 100);
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
@@ -149,23 +151,25 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
 
 
   return (
-    <div>
+    <div ref={wrapperRef}>
       <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1">
         <CalendarIcon className={`w-4 h-4 ${label === 'Return to India' ? 'text-yellow-500' : label === 'Departure from India' ? 'text-[#8c8c8c]' : 'text-blue-500'}`} />
         {label}
       </label>
       <div className="relative">
-        <input
-          type="text"
-          value={inputValue || (value ? format(value, 'dd MMM yyyy') : '')}
-          readOnly
-          placeholder={placeholder || 'DD MMM YYYY'}
-          className={cn(
-            "w-full px-4 py-3 pr-12 rounded-lg border text-sm focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white cursor-pointer",
-            error ? "border-red-300" : "border-gray-200"
-          )}
-        />
         <Popover open={isOpen} onOpenChange={setIsOpen}>
+          <PopoverTrigger asChild>
+            <input
+              type="text"
+              value={inputValue || (value ? format(value, 'dd MMM yyyy') : '')}
+              readOnly
+              placeholder={placeholder || 'DD MMM YYYY'}
+              className={cn(
+                "w-full px-4 py-3 pr-12 rounded-lg border text-sm focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white cursor-pointer",
+                error ? "border-red-300" : "border-gray-200"
+              )}
+            />
+          </PopoverTrigger>
           <PopoverTrigger asChild>
             <Button
               variant="ghost"
