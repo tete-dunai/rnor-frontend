@@ -4,6 +4,10 @@ import DateInput from '@/components/DateInput';
 import StatusResults from '@/components/StatusResults';
 import { calculateRNORStatus } from '@/utils/apiService';
 
+// Helper: formats a Date as YYYY-MM-DD in **local** time (e.g., 2000‑04‑12)
+const formatDateLocal = (d: Date) =>
+  d.toLocaleDateString('en-CA'); // 'en-CA' → YYYY-MM-DD
+
 const Index = () => {
   const [departureDate, setDepartureDate] = useState<Date | null>(null);
   const [returnDate, setReturnDate] = useState<Date | null>(null);
@@ -34,8 +38,8 @@ const Index = () => {
 
     try {
       const requestData = {
-        departure: departureDate.toISOString().split('T')[0],
-        return: returnDate.toISOString().split('T')[0],
+        departure: formatDateLocal(departureDate),
+        return: formatDateLocal(returnDate),
         avg_days: averageIndiaDays
       };
 
@@ -53,21 +57,24 @@ const Index = () => {
       }, 100);
     } catch (error) {
       console.error('Calculation failed:', error);
-      setError('Failed to calculate RNOR status. Please check if the backend server is running.');
+      setError('Please Retry after some Interval.');
     } finally {
       setIsCalculating(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-white p-6 pb-80 md:pb-6">
+    <div className="min-h-screen bg-white p-6 pb-40 md:pb-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
               <Calculator className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl font-semibold text-[#1dc9a9]">
+            <h1
+              className="text-3xl font-semibold text-[#1dc9a9]"
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            >
               RNOR Status Calculator
             </h1>
           </div>
@@ -79,17 +86,19 @@ const Index = () => {
             value={departureDate}
             onChange={setDepartureDate}
             placeholder="DD MMM YYYY"
+            disabled={showResults}
           />
           <DateInput
             label="Return to India"
             value={returnDate}
             onChange={setReturnDate}
             placeholder="DD MMM YYYY"
+            disabled={showResults}
           />
           <div>
-            <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1">
+            <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               <Clock className="w-4 h-4 text-[#8c8c8c]" />
-              Average days stayed in India (past 7 years)
+              Total days spent in India in the last 7 years
             </label>
             <input
               type="number"
@@ -97,6 +106,7 @@ const Index = () => {
               onChange={(e) =>
                 setAverageIndiaDays(e.target.value === '' ? null : Number(e.target.value))
               }
+              disabled={showResults}
               className="w-full px-4 py-3 text-sm rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white"
               placeholder="25"
             />
@@ -111,40 +121,41 @@ const Index = () => {
           </div>
         )}
 
-        <div className="text-center mb-6">
-          <button
-            onClick={handleCalculate}
-            disabled={isCalculating}
-            className="bg-[#2EE3C6] text-black px-6 py-3 rounded-full font-bold text-base shadow-xl hover:bg-[#29d1b6] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
-          >
-            {isCalculating ? (
-              <div className="flex items-center justify-center gap-2">
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                Calculating...
-              </div>
-            ) : (
-              'Calculate'
-            )}
-          </button>
-        </div>
+        {!showResults && (
+          <div className="text-center mb-6">
+            <button
+              onClick={handleCalculate}
+              disabled={isCalculating}
+              className="bg-[#2EE3C6] text-black px-6 py-3 rounded-full font-bold text-base shadow-xl hover:bg-[#29d1b6] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            >
+              {isCalculating ? (
+                <div className="flex items-center justify-center gap-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Calculating...
+                </div>
+              ) : (
+                'Calculate'
+              )}
+            </button>
+          </div>
+        )}
 
         {showResults && (
           <div ref={resultsRef}>
             <StatusResults results={results} />
-            <div className="text-center mt-6">
-              <p className="text-sm text-gray-700 mb-1">
-                These results are for educational purposes only and may not reflect your exact RNOR status.
+            <div className="text-center mt-4">
+              <p className="text-sm text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                Please note this is an estimate basis your inputs and your exact travel history is required for exact calculations.
               </p>
-              <p className="text-sm text-gray-700">
+              <p className="text-sm text-gray-700 mb-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                 Want help planning your move back to India?
-              </p>
-              <p className="text-sm text-gray-700 mb-4">
-                Let our cross-border experts guide you.
               </p>
               <a
                 href="https://www.turtlefinance.in/nris"
                 target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-black text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-gray-800 transition-colors"
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
                 Talk to a Cross-Border Advisor
               </a>
