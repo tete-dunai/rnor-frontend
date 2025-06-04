@@ -131,7 +131,7 @@ const Index = () => {
         {showResults && (
           <div ref={resultsRef}>
             <StatusResults results={results} />
-            <div className="text-center mt-6">
+            <div className="text-center mt-10">
               <p className="text-sm text-gray-700 mb-1">
                 Please note this is an estimate basis your inputs and your exact travel history is required for exact calculations.
               </p>
