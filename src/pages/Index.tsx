@@ -89,7 +89,7 @@ const Index = () => {
           <div>
             <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1">
               <Clock className="w-4 h-4 text-[#8c8c8c]" />
-              Average days stayed in India (past 7 years)
+              Total days spent in India in the last 7 years
             </label>
             <input
               type="number"
@@ -137,9 +137,6 @@ const Index = () => {
               </p>
               <p className="text-sm text-gray-700">
                 Want help planning your move back to India?
-              </p>
-              <p className="text-sm text-gray-700 mb-4">
-                Let our cross-border experts guide you.
               </p>
               <a
                 href="https://www.turtlefinance.in/nris"
