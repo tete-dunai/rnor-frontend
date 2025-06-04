@@ -68,7 +68,7 @@ const StatusResults = ({ results }: StatusResultsProps) => {
         </div>
       </div>
       
-      <div className="text-center text-lg text-black font-bold tracking-wide mb-12 drop-shadow-sm">
+      <div className="text-center text-lg text-black font-bold tracking-wide mb-2 drop-shadow-sm">
         {rnorMessage}
       </div>
 
