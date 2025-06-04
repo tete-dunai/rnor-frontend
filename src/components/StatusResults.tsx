@@ -69,7 +69,7 @@ const StatusResults = ({ results }: StatusResultsProps) => {
       </div>
       
       <div
-        className="text-center text-lg text-black font-bold tracking-wide"
+        className="text-center text-lg text-black font-bold tracking-wide mb-1"
         style={{ fontFamily: 'Montserrat, sans-serif' }}
       >
         {rnorMessage}

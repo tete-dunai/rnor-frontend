@@ -17,6 +17,7 @@ const Index = () => {
   const [isCalculating, setIsCalculating] = useState(false);
   const [error, setError] = useState<string>('');
   const resultsRef = useRef<HTMLDivElement>(null);
+  const [inputsChanged, setInputsChanged] = useState(false);
 
   const handleCalculate = async () => {
     if (!departureDate || !returnDate) {
@@ -35,6 +36,7 @@ const Index = () => {
 
     setIsCalculating(true);
     setError('');
+    setShowResults(false);
 
     try {
       const requestData = {
@@ -50,10 +52,12 @@ const Index = () => {
         status: item.status
       }));
 
+      setShowResults(false); // reset before setting again
       setResults(transformedResults);
       setShowResults(true);
+      setInputsChanged(false);
       setTimeout(() => {
-        resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       }, 100);
     } catch (error) {
       console.error('Calculation failed:', error);
@@ -64,7 +68,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-6 pb-40 md:pb-6">
+    <div className="min-h-screen bg-white p-6 pb-2 md:pb-2">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-3 mb-6">
@@ -80,20 +84,24 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
           <DateInput
             label="Departure from India"
             value={departureDate}
-            onChange={setDepartureDate}
+            onChange={(date) => {
+              setDepartureDate(date);
+              setInputsChanged(true);
+            }}
             placeholder="DD MMM YYYY"
-            disabled={showResults}
           />
           <DateInput
             label="Return to India"
             value={returnDate}
-            onChange={setReturnDate}
+            onChange={(date) => {
+              setReturnDate(date);
+              setInputsChanged(true);
+            }}
             placeholder="DD MMM YYYY"
-            disabled={showResults}
           />
           <div>
             <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
@@ -103,10 +111,10 @@ const Index = () => {
             <input
               type="number"
               value={averageIndiaDays ?? ''}
-              onChange={(e) =>
-                setAverageIndiaDays(e.target.value === '' ? null : Number(e.target.value))
-              }
-              disabled={showResults}
+              onChange={(e) => {
+                setAverageIndiaDays(e.target.value === '' ? null : Number(e.target.value));
+                setInputsChanged(true);
+              }}
               className="w-full px-4 py-3 text-sm rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white"
               placeholder="25"
             />
@@ -121,27 +129,31 @@ const Index = () => {
           </div>
         )}
 
-        {!showResults && (
-          <div className="text-center mb-6">
-            <button
-              onClick={handleCalculate}
-              disabled={isCalculating}
-              className="bg-[#2EE3C6] text-black px-6 py-3 rounded-full font-bold text-base shadow-xl hover:bg-[#29d1b6] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
-              style={{ fontFamily: 'Montserrat, sans-serif' }}
-            >
-              {isCalculating ? (
-                <div className="flex items-center justify-center gap-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Calculating...
-                </div>
-              ) : (
-                'Calculate'
-              )}
-            </button>
-          </div>
-        )}
+        <div
+          className={`text-center transition-all duration-300 ease-in-out ${
+            !showResults || inputsChanged
+              ? 'mb-3 opacity-100 scale-100 h-auto'
+              : 'mb-1 opacity-0 scale-95 pointer-events-none h-0'
+          }`}
+        >
+          <button
+            onClick={handleCalculate}
+            disabled={isCalculating}
+            className="bg-[#2EE3C6] text-black px-6 py-3 rounded-full font-bold text-base shadow-xl hover:bg-[#29d1b6] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
+            style={{ fontFamily: 'Montserrat, sans-serif' }}
+          >
+            {isCalculating ? (
+              <div className="flex items-center justify-center gap-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                Calculating...
+              </div>
+            ) : (
+              'Calculate'
+            )}
+          </button>
+        </div>
 
-        {showResults && (
+        {showResults && !isCalculating && (
           <div ref={resultsRef}>
             <StatusResults results={results} />
             <div className="text-center mt-4">
