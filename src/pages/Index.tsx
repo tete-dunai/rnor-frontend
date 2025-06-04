@@ -133,7 +133,7 @@ const Index = () => {
             <StatusResults results={results} />
             <div className="text-center mt-6">
               <p className="text-sm text-gray-700 mb-1">
-                These results are for educational purposes only and may not reflect your exact RNOR status.
+                Please note this is an estimate basis your inputs and your exact travel history is required for exact calculations.
               </p>
               <p className="text-sm text-gray-700">
                 Want help planning your move back to India?
