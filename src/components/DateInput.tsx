@@ -11,12 +11,18 @@ interface DateInputProps {
   value: Date | null;
   onChange: (date: Date | null) => void;
   placeholder?: string;
+  disabled?: boolean;
 }
 
-const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
+const DateInput = ({ label, value, onChange, placeholder, disabled = false }: DateInputProps) => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState('');
-  const [currentMonth, setCurrentMonth] = useState(value || new Date());
+  const [currentMonth, setCurrentMonth] = useState(() => {
+    if (label === 'Departure from India' && !value) {
+      return new Date(2000, 3); // April is month index 3
+    }
+    return value || new Date();
+  });
   const [yearInput, setYearInput] = useState(currentMonth.getFullYear().toString());
   const [isOpen, setIsOpen] = useState(false);
   const yearInputRef = useRef<HTMLInputElement>(null);
@@ -152,7 +158,7 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
 
   return (
     <div ref={wrapperRef}>
-      <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1">
+      <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1 italic" style={{ fontFamily: 'Montserrat, sans-serif' }}>
         <CalendarIcon className={`w-4 h-4 ${label === 'Return to India' ? 'text-yellow-500' : label === 'Departure from India' ? 'text-[#8c8c8c]' : 'text-blue-500'}`} />
         {label}
       </label>
@@ -168,12 +174,22 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
                 "w-full px-4 py-3 pr-12 rounded-lg border text-sm focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white cursor-pointer",
                 error ? "border-red-300" : "border-gray-200"
               )}
+              disabled={disabled}
+              onClick={() => {
+                if (disabled) return;
+                setIsOpen(true);
+              }}
             />
           </PopoverTrigger>
           <PopoverTrigger asChild>
             <Button
               variant="ghost"
               className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 hover:bg-emerald-50"
+              disabled={disabled}
+              onClick={() => {
+                if (disabled) return;
+                setIsOpen(true);
+              }}
             >
               <CalendarIcon className="h-4 w-4 text-gray-500" />
             </Button>
@@ -246,7 +262,7 @@ const DateInput = ({ label, value, onChange, placeholder }: DateInputProps) => {
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
-                <div className="text-base font-medium w-24 text-center">
+                <div className="text-base font-medium w-24 text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                   {format(currentMonth, 'MMMM')}
                 </div>
                 <Button
@@ -283,6 +299,7 @@ data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-
                 size="sm"
                 onClick={() => setIsOpen(false)}
                 className="bg-[#25e3c0] text-black font-semibold px-6 py-2 rounded-full shadow-lg transition-all hover:bg-[#2be8c5] hover:shadow-xl"
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
                 Confirm
               </Button>
