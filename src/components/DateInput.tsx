@@ -108,6 +108,10 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
       const parsedDate = parseDate(newValue);
       if (parsedDate) {
         onChange(parsedDate);
+        const calcBtn = document.getElementById("calculate-button");
+        if (calcBtn) calcBtn.classList.remove("hidden");
+        const resultDiv = document.getElementById("result");
+        if (resultDiv) resultDiv.classList.remove("hidden");
         setCurrentMonth(parsedDate);
       } else {
         onChange(null);
@@ -121,6 +125,10 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
   const handleCalendarSelect = (date: Date | undefined) => {
     if (date) {
       onChange(date);
+      const calcBtn = document.getElementById("calculate-button");
+      if (calcBtn) calcBtn.classList.remove("hidden");
+      const resultDiv = document.getElementById("result");
+      if (resultDiv) resultDiv.classList.remove("hidden");
       setInputValue('');
       setError('');
       setCurrentMonth(date);
@@ -168,7 +176,6 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
             <input
               type="text"
               value={inputValue || (value ? format(value, 'dd MMM yyyy') : '')}
-              readOnly
               placeholder={placeholder || 'DD MMM YYYY'}
               className={cn(
                 "w-full px-4 py-3 pr-12 rounded-lg border text-sm focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white cursor-pointer",
@@ -177,8 +184,10 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
               disabled={disabled}
               onClick={() => {
                 if (disabled) return;
+                if (onChange.toString().includes('setRnorsMessage')) return; // disables calendar if result shown
                 setIsOpen(true);
               }}
+              onChange={handleInputChange}
             />
           </PopoverTrigger>
           <PopoverTrigger asChild>
