@@ -68,7 +68,10 @@ const StatusResults = ({ results }: StatusResultsProps) => {
         </div>
       </div>
       
-      <div className="text-center text-lg text-black font-bold tracking-wide mb-3 drop-shadow-sm" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+      <div
+        className="text-center text-lg text-black font-bold tracking-wide"
+        style={{ fontFamily: 'Montserrat, sans-serif' }}
+      >
         {rnorMessage}
       </div>
 
