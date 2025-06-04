@@ -144,14 +144,8 @@ const Index = () => {
         {showResults && (
           <div ref={resultsRef}>
             <StatusResults results={results} />
-<div className="text-center mt-4">
-  <p className="text-sm text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-    Please note this is an estimate basis your inputs and your exact travel history is required for exact calculations.
-  </p>
-  <p className="text-sm text-gray-700 mb-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-    Want help planning your move back to India?
-  </p>
-</div>
+            <div className="text-center mt-4">
+              <p className="text-sm text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                 Please note this is an estimate basis your inputs and your exact travel history is required for exact calculations.
               </p>
               <p className="text-sm text-gray-700 mb-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
