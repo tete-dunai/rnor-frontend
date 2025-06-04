@@ -53,7 +53,7 @@ const Index = () => {
       }, 100);
     } catch (error) {
       console.error('Calculation failed:', error);
-      setError('Failed to calculate RNOR status. Please check if the backend server is running.');
+      setError('Please Retry after some Interval.');
     } finally {
       setIsCalculating(false);
     }
