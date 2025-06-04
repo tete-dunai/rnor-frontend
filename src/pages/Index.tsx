@@ -110,11 +110,25 @@ const Index = () => {
             </label>
             <input
               type="number"
+              min={0}
               value={averageIndiaDays ?? ''}
               onChange={(e) => {
-                setAverageIndiaDays(e.target.value === '' ? null : Number(e.target.value));
+                const val = Number(e.target.value);
+                if (val >= 0 || e.target.value === '') {
+                  setAverageIndiaDays(e.target.value === '' ? null : val);
+                }
                 setInputsChanged(true);
               }}
+              onKeyDown={(e) => {
+                // Block Arrow-Down when value would become negative
+                if (
+                  e.key === 'ArrowDown' &&
+                  (e.currentTarget.value === '' || Number(e.currentTarget.value) <= 0)
+                ) {
+                  e.preventDefault();
+                }
+              }}
+              onWheel={(e) => e.currentTarget.blur()} // disables mouse-wheel changes
               className="w-full px-4 py-3 text-sm rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white"
               placeholder="25"
             />
