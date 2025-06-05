@@ -68,9 +68,8 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-6 pb-2 md:pb-2 overflow-hidden">
-      <div className="scale-[0.85] origin-top-left w-[117.6%] overflow-hidden sm:scale-100 sm:w-full">
-        <div className="max-w-6xl mx-auto">
+    <div className="bg-white p-6 pb-2 md:pb-2 overflow-hidden flex flex-col justify-start">
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
@@ -85,54 +84,56 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
-          <DateInput
-            label="Departure from India"
-            value={departureDate}
-            onChange={(date) => {
-              setDepartureDate(date);
-              setInputsChanged(true);
-            }}
-            placeholder="DD MMM YYYY"
-          />
-          <DateInput
-            label="Return to India"
-            value={returnDate}
-            onChange={(date) => {
-              setReturnDate(date);
-              setInputsChanged(true);
-            }}
-            placeholder="DD MMM YYYY"
-          />
-          <div>
-            <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              <Clock className="w-4 h-4 text-[#8c8c8c]" />
-              Total days spent in India in the last 7 years
-            </label>
-            <input
-              type="number"
-              min={0}
-              value={averageIndiaDays ?? ''}
-              onChange={(e) => {
-                const val = Number(e.target.value);
-                if (val >= 0 || e.target.value === '') {
-                  setAverageIndiaDays(e.target.value === '' ? null : val);
-                }
+        <div className="scale-[0.75] origin-top-left w-[133.3%] overflow-hidden !min-h-0 sm:scale-100 sm:w-full">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+            <DateInput
+              label="Departure from India"
+              value={departureDate}
+              onChange={(date) => {
+                setDepartureDate(date);
                 setInputsChanged(true);
               }}
-              onKeyDown={(e) => {
-                // Block Arrow-Down when value would become negative
-                if (
-                  e.key === 'ArrowDown' &&
-                  (e.currentTarget.value === '' || Number(e.currentTarget.value) <= 0)
-                ) {
-                  e.preventDefault();
-                }
-              }}
-              onWheel={(e) => e.currentTarget.blur()} // disables mouse-wheel changes
-              className="w-full px-4 py-3 text-sm rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white"
-              placeholder="25"
+              placeholder="DD MMM YYYY"
             />
+            <DateInput
+              label="Return to India"
+              value={returnDate}
+              onChange={(date) => {
+                setReturnDate(date);
+                setInputsChanged(true);
+              }}
+              placeholder="DD MMM YYYY"
+            />
+            <div>
+              <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                <Clock className="w-4 h-4 text-[#8c8c8c]" />
+                Total days spent in India in the last 7 years
+              </label>
+              <input
+                type="number"
+                min={0}
+                value={averageIndiaDays ?? ''}
+                onChange={(e) => {
+                  const val = Number(e.target.value);
+                  if (val >= 0 || e.target.value === '') {
+                    setAverageIndiaDays(e.target.value === '' ? null : val);
+                  }
+                  setInputsChanged(true);
+                }}
+                onKeyDown={(e) => {
+                  // Block Arrow-Down when value would become negative
+                  if (
+                    e.key === 'ArrowDown' &&
+                    (e.currentTarget.value === '' || Number(e.currentTarget.value) <= 0)
+                  ) {
+                    e.preventDefault();
+                  }
+                }}
+                onWheel={(e) => e.currentTarget.blur()} // disables mouse-wheel changes
+                className="w-full px-4 py-3 text-sm rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white"
+                placeholder="25"
+              />
+            </div>
           </div>
         </div>
 
@@ -189,7 +190,6 @@ const Index = () => {
             </div>
           </div>
         )}
-        </div>
       </div>
     </div>
   );
