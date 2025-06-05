@@ -284,24 +284,24 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                 </Button>
               </div>
             </div>
-            <Calendar
-              mode="single"
-              selected={value || undefined}
-              onSelect={handleCalendarSelect}
-              month={currentMonth}
-              onMonthChange={setCurrentMonth}
-              initialFocus
-              className={cn("p-3 pointer-events-auto")}
-              components={{
-                Caption: () => null
-              }}
-              classNames={{
-                day: "w-9 h-9 flex items-center justify-center rounded-md text-gray-400 \
-hover:bg-[#0f172a] hover:text-white \
-focus:outline-none focus:ring-0 \
-data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-md data-[selected]:font-medium"
-              }}
-            />
+ <div className="origin-top mx-auto scale-[0.6] sm:scale-100">
+  <Calendar
+    mode="single"
+    selected={value || undefined}
+    onSelect={handleCalendarSelect}
+    month={currentMonth}
+    onMonthChange={setCurrentMonth}
+    initialFocus
+    className="pointer-events-auto max-w-[220px] text-[10px]"
+    components={{ Caption: () => null }}
+    classNames={{
+      day: "w-9 h-9 flex items-center justify-center rounded-md text-gray-400 " +
+           "hover:bg-[#0f172a] hover:text-white focus:outline-none focus:ring-0 " +
+           "data-[selected]:bg-[#0c111d] data-[selected]:text-white " +
+           "data-[selected]:rounded-md data-[selected]:font-medium"
+    }}
+  />
+</div>
             <div className="flex justify-end p-3 pt-0">
               <Button
                 variant="default"
