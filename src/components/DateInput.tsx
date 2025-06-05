@@ -1,6 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
-import { format } from 'date-fns';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';More actions
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -50,13 +48,13 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
     const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
     if (isLeapYear) daysInMonth[1] = 29;
-    
+
     return day <= daysInMonth[month - 1];
   };
 
   const parseDate = (dateString: string): Date | null => {
     setError('');
-    
+
     const formats = [
       /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/,
       /^(\d{1,2})-(\d{1,2})-(\d{4})$/,
@@ -68,7 +66,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
       const match = dateString.match(format);
       if (match) {
         let day, month, year;
-        
+
         if (format.source.startsWith('^(\\d{4})')) {
           [, year, month, day] = match;
         } else {
@@ -85,7 +83,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
         }
 
         const date = new Date(yearNum, monthNum - 1, dayNum);
-        
+
         if (date.getFullYear() === yearNum && 
             date.getMonth() === monthNum - 1 && 
             date.getDate() === dayNum) {
@@ -138,7 +136,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
   const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const year = e.target.value;
     setYearInput(year);
-    
+
     if (year.length === 4 && !isNaN(parseInt(year))) {
       const newDate = new Date(parseInt(year), currentMonth.getMonth(), 1);
       setCurrentMonth(newDate);
@@ -204,8 +202,9 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-auto p-0"
+ className="w-auto p-0"
             align="end"
+            sideOffset={4}
             onKeyDown={(e) => {
               const active = document.activeElement;
               if (active?.tagName === 'INPUT') return;
@@ -231,7 +230,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                 >
                   <ChevronUp className="h-4 w-4" />
                 </Button>
-                
+
                 <input
                   type="number"
                   value={yearInput}
@@ -252,7 +251,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                     }
                   }}
                 />
-                
+
                 <Button
                   variant="outline"
                   size="sm"
@@ -284,24 +283,24 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                 </Button>
               </div>
             </div>
-            <div className="origin-top mx-auto scale-[0.85] sm:scale-100 max-w-[260px]">
-              <Calendar
-                mode="single"
-                selected={value || undefined}
-                onSelect={handleCalendarSelect}
-                month={currentMonth}
-                onMonthChange={setCurrentMonth}
-                initialFocus
-                className="pointer-events-auto max-w-[220px] text-[10px]"
-                components={{ Caption: () => null }}
-                classNames={{
-                  day: "w-9 h-9 flex items-center justify-center rounded-md text-gray-400 " +
-                    "hover:bg-[#0f172a] hover:text-white focus:outline-none focus:ring-0 " +
-                    "data-[selected]:bg-[#0c111d] data-[selected]:text-white " +
-                    "data-[selected]:rounded-md data-[selected]:font-medium"
-                }}
-              />
-            </div>
+            <Calendar
+              mode="single"
+              selected={value || undefined}
+              onSelect={handleCalendarSelect}
+              month={currentMonth}
+              onMonthChange={setCurrentMonth}
+              initialFocus
+              className={cn("p-3 pointer-events-auto")}
+              components={{
+                Caption: () => null
+              }}
+              classNames={{
+                day: "w-9 h-9 flex items-center justify-center rounded-md text-gray-400 \
+hover:bg-[#0f172a] hover:text-white \
+focus:outline-none focus:ring-0 \
+data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-md data-[selected]:font-medium"
+              }}
+            />
             <div className="flex justify-end p-3 pt-0">
               <Button
                 variant="default"
