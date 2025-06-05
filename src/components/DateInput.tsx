@@ -204,7 +204,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="p-0 w-[260px] sm:w-auto"
+            className="p-0 w-[220px] sm:w-[240px]"
             align="center"
             sideOffset={4}
             onKeyDown={(e) => {
@@ -285,7 +285,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                 </Button>
               </div>
             </div>
-            <div className="origin-top mx-auto scale-[0.85] sm:scale-100 max-w-[260px]">
+            <div className="origin-top mx-auto scale-[0.7] sm:scale-[0.85] max-w-[240px]">
               <Calendar
                 mode="single"
                 selected={value || undefined}
