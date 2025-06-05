@@ -204,8 +204,8 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-auto p-0"
-            align="end"
+            className="p-2 w-[200px] max-h-[360px] sm:w-[260px] sm:max-h-[420px] overflow-y-auto"
+            align="start"
             sideOffset={4}
             onKeyDown={(e) => {
               const active = document.activeElement;
@@ -228,7 +228,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                   variant="outline"
                   size="sm"
                   onClick={() => handleYearNavigation('prev')}
-                  className="h-8"
+                  className="h-6 w-6"
                 >
                   <ChevronUp className="h-4 w-4" />
                 </Button>
@@ -238,7 +238,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                   value={yearInput}
                   onChange={handleYearChange}
                   ref={yearInputRef}
-                  className="w-20 text-center border border-[#25e3c0] rounded-full px-2 py-1 text-base text-[#1a1e29] focus:ring-2 focus:ring-[#25e3c0] focus:outline-none transition-all"
+                  className="w-16 text-sm text-center border border-[#25e3c0] rounded-full px-2 py-1 text-[#1a1e29] focus:ring-2 focus:ring-[#25e3c0] focus:outline-none transition-all"
                   min="1900"
                   max="2100"
                   onKeyDown={(e) => {
@@ -258,7 +258,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                   variant="outline"
                   size="sm"
                   onClick={() => handleYearNavigation('next')}
-                  className="h-8"
+                  className="h-6 w-6"
                 >
                   <ChevronDown className="h-4 w-4" />
                 </Button>
@@ -268,18 +268,18 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                   variant="outline"
                   size="sm"
                   onClick={() => handleMonthNavigation('prev')}
-                  className="h-8"
+                  className="h-6 w-6"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
-                <div className="text-base font-medium w-24 text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                <div className="text-sm font-medium w-20 text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                   {format(currentMonth, 'MMMM')}
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => handleMonthNavigation('next')}
-                  className="h-8"
+                  className="h-6 w-6"
                 >
                   <ChevronRight className="h-4 w-4" />
                 </Button>
@@ -297,7 +297,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                 Caption: () => null
               }}
               classNames={{
-                day: "w-9 h-9 flex items-center justify-center rounded-md text-gray-400 \
+                day: "w-8 h-8 flex items-center justify-center rounded-md text-gray-400 \
 hover:bg-[#0f172a] hover:text-white \
 focus:outline-none focus:ring-0 \
 data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-md data-[selected]:font-medium"
@@ -308,7 +308,7 @@ data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-
                 variant="default"
                 size="sm"
                 onClick={() => setIsOpen(false)}
-                className="bg-[#25e3c0] text-black font-semibold px-6 py-2 rounded-full shadow-lg transition-all hover:bg-[#2be8c5] hover:shadow-xl"
+                className="bg-[#25e3c0] text-black font-semibold px-4 py-1.5 text-sm rounded-full shadow transition-all hover:bg-[#2be8c5] hover:shadow-md"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
                 Confirm
