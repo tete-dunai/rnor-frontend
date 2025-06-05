@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';More actions
+import { useState, useEffect, useRef } from 'react';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -176,7 +176,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
             <input
               type="text"
               value={inputValue || (value ? format(value, 'dd MMM yyyy') : '')}
-placeholder={placeholder || 'DD MMM YYYY'}Add commentMore actions
+              placeholder={placeholder || 'DD MMM YYYY'}
               className={cn(
                 "w-full px-4 py-3 pr-12 rounded-lg border text-sm focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white cursor-pointer",
                 error ? "border-red-300" : "border-gray-200"
@@ -204,8 +204,9 @@ placeholder={placeholder || 'DD MMM YYYY'}Add commentMore actions
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-auto p-0"
-            align="end"
+            className="p-0 w-[220px] sm:w-[260px] max-h-[420px] overflow-y-auto"
+            align="start"
+            sideOffset={4}
             onKeyDown={(e) => {
               const active = document.activeElement;
               if (active?.tagName === 'INPUT') return;
