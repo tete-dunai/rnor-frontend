@@ -84,7 +84,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="scale-[0.75] origin-top-left w-[133.3%] overflow-hidden !min-h-0 sm:scale-100 sm:w-full">
+        <div className="scale-[0.85] origin-top-left w-[133.3%] overflow-hidden !min-h-0 sm:scale-100 sm:w-full">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
             <DateInput
               label="Departure from India"
