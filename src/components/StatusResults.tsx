@@ -38,7 +38,7 @@ const StatusResults = ({ results }: StatusResultsProps) => {
   return (
     <div className="w-full">
       <div className="text-center mb-3">
-        <h2 className="text-3xl font-bold text-[#1dc9a9] mb-3" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+        <h2 className="text-xl sm:text-3xl font-bold text-[#1dc9a9] mb-3" style={{ fontFamily: 'Montserrat, sans-serif' }}>
           RNOR Status Results
         </h2>
         <p className="text-gray-600" style={{ fontFamily: 'Montserrat, sans-serif' }}>Financial year wise residential status calculation</p>
@@ -101,4 +101,62 @@ const StatusResults = ({ results }: StatusResultsProps) => {
   );
 };
 
+
 export default StatusResults;
+
+import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/ui/dialog";
+import { useEffect, useState } from "react";
+
+export const StatusResultsWrapper = ({ results }: StatusResultsProps) => {
+  const [open, setOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      setOpen(true);
+    }
+  }, [isMobile]);
+
+  return (
+    <>
+      {/* Desktop View */}
+      {!isMobile && (
+        <div>
+          <StatusResults results={results} />
+        </div>
+      )}
+
+      {/* Mobile View */}
+      {isMobile && (
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <span className="hidden" />
+          </DialogTrigger>
+          <DialogContent
+            className="
+              fixed inset-x-4 bottom-4 z-50
+              max-h-[70vh] overflow-y-auto
+              rounded-xl bg-white shadow-xl
+              p-4"
+          >
+            <DialogClose className="absolute top-2 right-2">
+              <button className="text-gray-500 hover:text-gray-700 text-2xl leading-none">
+                &times;
+              </button>
+            </DialogClose>
+            <StatusResults results={results} />
+          </DialogContent>
+        </Dialog>
+      )}
+    </>
+  );
+};
