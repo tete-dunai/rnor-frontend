@@ -68,7 +68,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-6 pb-2 md:pb-2">
+    <div className="min-h-screen bg-white p-3 sm:p-6 pb-2">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-3 mb-6">
@@ -76,7 +76,7 @@ const Index = () => {
               <Calculator className="w-8 h-8 text-white" />
             </div>
             <h1
-              className="text-3xl font-semibold text-[#1dc9a9]"
+              className="text-2xl sm:text-3xl font-semibold text-[#1dc9a9]"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             >
               RNOR Status Calculator
@@ -84,7 +84,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-4">
           <DateInput
             label="Departure from India"
             value={departureDate}
@@ -129,7 +129,7 @@ const Index = () => {
                 }
               }}
               onWheel={(e) => e.currentTarget.blur()} // disables mouse-wheel changes
-              className="w-full px-4 py-3 text-sm rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white"
+              className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white"
               placeholder="25"
             />
           </div>
@@ -153,7 +153,7 @@ const Index = () => {
           <button
             onClick={handleCalculate}
             disabled={isCalculating}
-            className="bg-[#2EE3C6] text-black px-6 py-3 rounded-full font-bold text-base shadow-xl hover:bg-[#29d1b6] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
+            className="bg-[#2EE3C6] text-black px-4 py-2 text-sm sm:text-base rounded-full font-bold shadow-xl hover:bg-[#29d1b6] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed min-w-[140px]"
             style={{ fontFamily: 'Montserrat, sans-serif' }}
           >
             {isCalculating ? (
