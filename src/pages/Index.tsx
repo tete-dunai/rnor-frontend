@@ -24,13 +24,14 @@ const Index = () => {
       setError('Please select both departure and return dates');
       return;
     }
-    if (averageIndiaDays < 0) {
-      setError('Please enter a non-negative number of days.');
+
+    if (averageIndiaDays === null) {
+      setError('Please fill all the fields.');
       return;
     }
 
-    if (averageIndiaDays === null ) {
-      setError('Please fill all the fields.');
+    if (averageIndiaDays < 0) {
+      setError('Please enter a non‑negative number of days.');
       return;
     }
 
@@ -189,8 +190,9 @@ setInputsChanged(true);
             </div>
           </div>
         )}
-  </div>
+      </div>
     </div>
+  </div>
   );
 };
 
