@@ -35,9 +35,11 @@ useEffect(() => {
       if (el) el.focus();
 
       if (window.innerWidth < 768 && wrapperRef.current) {
-        const offset = 100;
-        const y = wrapperRef.current.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+                wrapperRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Optional: Add a slight upward scroll after it settles to show extra space above
+        setTimeout(() => {
+          window.scrollBy(0, -100); // adjust the offset as needed
+        }, 400);
       }
     }, 100);
 
