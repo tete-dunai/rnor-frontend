@@ -24,7 +24,7 @@ const Index = () => {
       setTimeout(() => {
         const cta = document.getElementById('cta-button');
         if (cta) {
-          const offset = 200; // adjust this value as needed
+          const offset = 230; // adjust this value as needed
           const y = cta.getBoundingClientRect().top + window.pageYOffset - offset;
           window.scrollTo({ top: y, behavior: 'smooth' });
         }
