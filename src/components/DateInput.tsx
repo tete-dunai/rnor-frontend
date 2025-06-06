@@ -204,7 +204,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="transform origin-top-left scale-[0.8] sm:scale-100 w-auto text-sm p-2 sm:text-base sm:p-3"
+            className="transform origin-top-left scale-[0.8] sm:scale-100 w-auto text-sm p-2 -ml-4 sm:ml-0 sm:text-base sm:p-3"
             side="bottom"
             align="start"
             sideOffset={0}
