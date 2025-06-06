@@ -204,7 +204,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
             </Button>
           </PopoverTrigger>
           <PopoverContent
- className="w-auto p-0"
+ className="w-auto p-2 scale-[0.8] sm:scale-100"
             align="end"
             sideOffset={4}
             onKeyDown={(e) => {
@@ -223,7 +223,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
             }}
           >
             <div className="p-3">
-              <div className="year-section flex items-center justify-between mb-3 gap-2">
+              <div className="year-section flex items-center justify-between mb-2 gap-1 sm:gap-2 sm:mb-3">
                 <Button
                   variant="outline"
                   size="sm"
@@ -238,7 +238,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                   value={yearInput}
                   onChange={handleYearChange}
                   ref={yearInputRef}
-                  className="w-20 text-center border border-[#25e3c0] rounded-full px-2 py-1 text-base text-[#1a1e29] focus:ring-2 focus:ring-[#25e3c0] focus:outline-none transition-all"
+                  className="w-16 text-center border border-[#25e3c0] rounded-full px-1.5 py-0.5 text-sm text-[#1a1e29] focus:ring-2 focus:ring-[#25e3c0] focus:outline-none transition-all sm:w-20 sm:text-base sm:px-2 sm:py-1"
                   min="1900"
                   max="2100"
                   onKeyDown={(e) => {
@@ -272,7 +272,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
-                <div className="text-base font-medium w-24 text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                <div className="text-sm sm:text-base font-medium w-20 sm:w-24 text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                   {format(currentMonth, 'MMMM')}
                 </div>
                 <Button
@@ -297,7 +297,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                 Caption: () => null
               }}
               classNames={{
-                day: "w-9 h-9 flex items-center justify-center rounded-md text-gray-400 \
+                day: "w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-md text-gray-400 \
 hover:bg-[#0f172a] hover:text-white \
 focus:outline-none focus:ring-0 \
 data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-md data-[selected]:font-medium"
@@ -308,7 +308,7 @@ data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-
                 variant="default"
                 size="sm"
                 onClick={() => setIsOpen(false)}
-                className="bg-[#25e3c0] text-black font-semibold px-6 py-2 rounded-full shadow-lg transition-all hover:bg-[#2be8c5] hover:shadow-xl"
+                className="bg-[#25e3c0] text-black font-semibold px-4 py-1.5 text-sm rounded-full shadow-lg transition-all hover:bg-[#2be8c5] hover:shadow-xl sm:px-6 sm:py-2 sm:text-base"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
                 Confirm
