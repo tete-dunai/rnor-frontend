@@ -34,10 +34,9 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
       const el = yearInputRef.current;
       if (el) el.focus();
 
-      if (window.innerWidth < 768 && wrapperRef.current) {
-        const offset = 500; // You can adjust this value
-        const y = wrapperRef.current.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+      if (window.innerWidth < 768) {
+        // Force a huge scroll just to test
+        window.scrollTo({ top: 1000, behavior: 'smooth' });
       }
     }, 100);
 
