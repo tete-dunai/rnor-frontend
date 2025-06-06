@@ -1,10 +1,10 @@
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
 import React, { useState, useEffect, useRef } from 'react';
 import { format } from 'date-fns';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
 
 interface DateInputProps {
   label: string;
@@ -204,7 +204,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
             </Button>
           </PopoverTrigger>
           <PopoverContent
- className="w-auto p-0"
+ className="w-auto text-sm p-2 sm:text-base sm:p-3"
             align="end"
             sideOffset={4}
             onKeyDown={(e) => {
@@ -228,7 +228,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                   variant="outline"
                   size="sm"
                   onClick={() => handleYearNavigation('prev')}
-                  className="h-8"
+                  className="h-6 w-6 p-0 sm:h-8 sm:w-8"
                 >
                   <ChevronUp className="h-4 w-4" />
                 </Button>
@@ -238,7 +238,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                   value={yearInput}
                   onChange={handleYearChange}
                   ref={yearInputRef}
-                  className="w-20 text-center border border-[#25e3c0] rounded-full px-2 py-1 text-base text-[#1a1e29] focus:ring-2 focus:ring-[#25e3c0] focus:outline-none transition-all"
+                  className="w-16 text-center border border-[#25e3c0] rounded-full px-2 py-1 text-sm text-[#1a1e29] focus:ring-2 focus:ring-[#25e3c0] focus:outline-none transition-all sm:w-20 sm:text-base"
                   min="1900"
                   max="2100"
                   onKeyDown={(e) => {
@@ -258,7 +258,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                   variant="outline"
                   size="sm"
                   onClick={() => handleYearNavigation('next')}
-                  className="h-8"
+                  className="h-6 w-6 p-0 sm:h-8 sm:w-8"
                 >
                   <ChevronDown className="h-4 w-4" />
                 </Button>
@@ -268,18 +268,18 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                   variant="outline"
                   size="sm"
                   onClick={() => handleMonthNavigation('prev')}
-                  className="h-8"
+                  className="h-6 w-6 p-0 sm:h-8 sm:w-8"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
-                <div className="text-base font-medium w-24 text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                <div className="text-sm font-medium w-24 text-center sm:text-base" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                   {format(currentMonth, 'MMMM')}
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => handleMonthNavigation('next')}
-                  className="h-8"
+                  className="h-6 w-6 p-0 sm:h-8 sm:w-8"
                 >
                   <ChevronRight className="h-4 w-4" />
                 </Button>
@@ -292,12 +292,12 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
               month={currentMonth}
               onMonthChange={setCurrentMonth}
               initialFocus
-              className={cn("p-3 pointer-events-auto")}
+              className={cn("p-2 sm:p-3 pointer-events-auto")}
               components={{
                 Caption: () => null
               }}
               classNames={{
-                day: "w-9 h-9 flex items-center justify-center rounded-md text-gray-400 \
+                day: "w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-md text-gray-400 \
 hover:bg-[#0f172a] hover:text-white \
 focus:outline-none focus:ring-0 \
 data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-md data-[selected]:font-medium"
@@ -308,7 +308,7 @@ data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-
                 variant="default"
                 size="sm"
                 onClick={() => setIsOpen(false)}
-                className="bg-[#25e3c0] text-black font-semibold px-6 py-2 rounded-full shadow-lg transition-all hover:bg-[#2be8c5] hover:shadow-xl"
+                className="bg-[#25e3c0] text-black font-semibold px-4 py-1 text-xs sm:px-6 sm:py-2 sm:text-sm rounded-full shadow-lg transition-all hover:bg-[#2be8c5] hover:shadow-xl"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
                 Confirm
