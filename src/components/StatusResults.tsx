@@ -75,7 +75,7 @@ const StatusResults = ({ results }: StatusResultsProps) => {
         {rnorMessage}
       </div>
 
-      <div className="mt-4 text-center">
+     <div id="cta-button" className="mt-4 text-center">
         <div className="flex justify-center gap-8 text-sm text-gray-700 flex-wrap">
           {hasNR && (
             <div className="flex items-center gap-2">
