@@ -198,7 +198,7 @@ setInputsChanged(true);
               >
                 Talk to a Cross-Border Advisor
               </a>
-              <div className="block sm:hidden h-20"></div>
+              <div className="block sm:hidden h-5"></div>
             </div>
           </div>
         )}
