@@ -45,23 +45,14 @@ const StatusResults = ({ results }: StatusResultsProps) => {
       </div>
 
       <div className="flex justify-center mb-7">
-        <div className="flex flex-wrap justify-center gap-x-3 gap-y-2">
+        <div className="flex flex-col items-center gap-2">
           {results.map((result, index) => (
-            <div 
-              key={index} 
-              className="flex flex-row items-center justify-between w-full max-w-xs mx-auto gap-3 group"
-            >
-              <div className="text-xs font-semibold text-gray-800 uppercase tracking-wide mb-2 bg-gray-50 shadow-md px-4 py-2 rounded-full min-w-[110px] text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            <div key={index} className="flex flex-row items-center justify-center gap-2 mb-2">
+              <div className="bg-gray-50 px-3 py-1 rounded-full text-sm font-medium text-gray-800" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                 {result.financialYear}
               </div>
-              <div className={`
-                px-4 py-2 rounded-xl text-xs font-semibold tracking-wide cursor-pointer min-w-[90px] text-center
-                ${getStatusColor(result.status)} 
-                ${getSpecialStyling(result.status)}
-              `}>
-                <span className={result.status === 'RNOR' ? 'drop-shadow-md' : ''} style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  {result.status === 'NR' ? 'NRI' : result.status}
-                </span>
+              <div className={`px-3 py-1 rounded-full text-sm font-semibold text-white ${getStatusColor(result.status)} ${getSpecialStyling(result.status)}`} style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                {result.status === 'NR' ? 'NRI' : result.status}
               </div>
             </div>
           ))}
