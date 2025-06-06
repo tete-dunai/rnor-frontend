@@ -27,16 +27,20 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
   const [isOpen, setIsOpen] = useState(false);
   const yearInputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
+useEffect(() => {
   if (isOpen) {
     const timer = setTimeout(() => {
       const el = yearInputRef.current;
       if (el) el.focus();
 
-      if (window.innerWidth < 768) {
-        // Force a huge scroll just to test
-        window.scrollTo({ top: 1000, behavior: 'smooth' });
+      if (window.innerWidth < 768 && wrapperRef.current) {
+        // 1) Scroll input to the top
+        wrapperRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // 2) After it finishes, scroll UP by 400 px to leave a visible gap
+        setTimeout(() => {
+          window.scrollBy(0, -400);   // increase to -600 / -800 if you need an even larger gap
+        }, 350);                      // wait long enough for scrollIntoView to complete
       }
     }, 100);
 
