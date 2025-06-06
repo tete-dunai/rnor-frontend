@@ -145,7 +145,7 @@ setInputsChanged(true);
 }}
               onWheel={(e) => e.currentTarget.blur()} // disables mouse-wheel changes
               className="w-full px-4 py-3 text-sm rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white"
-              placeholder="25"
+              placeholder="250"
  />
             </div>
         </div>
