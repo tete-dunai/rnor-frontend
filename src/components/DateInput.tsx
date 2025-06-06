@@ -204,9 +204,10 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
             </Button>
           </PopoverTrigger>
           <PopoverContent
- className="w-auto p-2 scale-[0.8] sm:scale-100"
-            align="end"
-            sideOffset={4}
+            className="transform origin-top-left scale-[0.8] sm:scale-100 w-auto text-sm p-2 sm:text-base sm:p-3"
+            side="bottom"
+            align="start"
+            sideOffset={0}
             onKeyDown={(e) => {
               const active = document.activeElement;
               if (active?.tagName === 'INPUT') return;
