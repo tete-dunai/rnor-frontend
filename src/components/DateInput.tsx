@@ -209,9 +209,9 @@ useEffect(() => {
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="transform origin-top-left scale-[0.8] sm:scale-100 w-auto text-sm p-2 -ml-4 sm:ml-0 sm:text-base sm:p-3"
+            className="transform origin-top-right scale-[0.8] sm:scale-100 w-auto text-sm p-2 ml-0 sm:ml-0 sm:text-base sm:p-3"
             side="bottom"
-            align="start"
+            align="end"
             sideOffset={0}
             onKeyDown={(e) => {
               const active = document.activeElement;
