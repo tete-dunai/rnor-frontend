@@ -64,7 +64,7 @@ const StatusResults = ({ results }: StatusResultsProps) => {
       </div>
 
       <div className="mt-4 text-center">
-        <div className="flex justify-center gap-8 text-sm text-gray-700 flex-wrap">
+        <div className="flex justify-center gap-x-3 sm:gap-x-6 gap-y-1 sm:gap-y-3 text-sm text-gray-700 flex-wrap">
           {hasNR && (
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded-md bg-[#8c8c8c]"></div>
