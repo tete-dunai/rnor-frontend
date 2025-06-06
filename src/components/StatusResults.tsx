@@ -49,13 +49,13 @@ const StatusResults = ({ results }: StatusResultsProps) => {
           {results.map((result, index) => (
             <div 
               key={index} 
-              className="flex flex-col items-center group"
+              className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 group"
             >
-              <div className="text-xs font-semibold text-gray-800 uppercase tracking-wide mb-2 bg-gray-50 shadow-md px-4 py-2 rounded-full" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+              <div className="text-xs font-semibold text-gray-800 uppercase tracking-wide mb-2 bg-gray-50 shadow-md px-4 py-2 rounded-full min-w-[100px] text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                 {result.financialYear}
               </div>
               <div className={`
-                px-4 py-2 rounded-xl text-xs font-semibold tracking-wide cursor-pointer
+                px-4 py-2 rounded-xl text-xs font-semibold tracking-wide cursor-pointer min-w-[100px] text-center
                 ${getStatusColor(result.status)} 
                 ${getSpecialStyling(result.status)}
               `}>
@@ -69,14 +69,14 @@ const StatusResults = ({ results }: StatusResultsProps) => {
       </div>
       
       <div
-                className="text-center text-lg text-black font-bold tracking-wide mt-0 mb-0 sm:mt-1 sm:mb-1"
+        className="text-center text-lg text-black font-bold tracking-wide mb-1"
         style={{ fontFamily: 'Montserrat, sans-serif' }}
       >
         {rnorMessage}
       </div>
 
-     <div id="cta-button" className="mt-4 text-center">
-     <div className="flex justify-center gap-x-8 gap-y-0 sm:gap-y-3 text-sm text-gray-700 flex-wrap">
+      <div className="mt-4 text-center">
+        <div className="flex justify-center gap-8 text-sm text-gray-700 flex-wrap">
           {hasNR && (
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded-md bg-[#8c8c8c]"></div>
@@ -101,62 +101,4 @@ const StatusResults = ({ results }: StatusResultsProps) => {
   );
 };
 
-
 export default StatusResults;
-
-import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/ui/dialog";
-import { useEffect, useState } from "react";
-
-export const StatusResultsWrapper = ({ results }: StatusResultsProps) => {
-  const [open, setOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    if (isMobile) {
-      setOpen(true);
-    }
-  }, [isMobile]);
-
-  return (
-    <>
-      {/* Desktop View */}
-      {!isMobile && (
-        <div>
-          <StatusResults results={results} />
-        </div>
-      )}
-
-      {/* Mobile View */}
-      {isMobile && (
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <span className="hidden" />
-          </DialogTrigger>
-          <DialogContent
-            className="
-              fixed inset-x-4 bottom-4 z-50
-              max-h-[70vh] overflow-y-auto
-              rounded-xl bg-white shadow-xl
-              p-4"
-          >
-            <DialogClose className="absolute top-2 right-2">
-              <button className="text-gray-500 hover:text-gray-700 text-2xl leading-none">
-                &times;
-              </button>
-            </DialogClose>
-            <StatusResults results={results} />
-          </DialogContent>
-        </Dialog>
-      )}
-    </>
-  );
-};
