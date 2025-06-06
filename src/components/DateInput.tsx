@@ -31,19 +31,13 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
 useEffect(() => {
   if (isOpen) {
     const timer = setTimeout(() => {
-      // Focus the year-input inside the calendar
       const el = yearInputRef.current;
       if (el) el.focus();
 
-      // Only on mobile screens
       if (window.innerWidth < 768 && wrapperRef.current) {
-        // 1) Scroll the input wrapper to the top
-        wrapperRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        // 2) After it finishes, scroll up by 100px to leave a gap above the input
-        setTimeout(() => {
-          window.scrollBy(0, -100);  // ← You can change -100 to -200 if you want more space
-        }, 350);
+        const offset = 100;
+        const y = wrapperRef.current.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
       }
     }, 100);
 
