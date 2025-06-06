@@ -42,9 +42,9 @@ const StatusResults = ({ results }: StatusResultsProps) => {
       </div>
 
       <div className="flex justify-center mb-7">
-        <div className="flex flex-col items-center gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
           {results.map((result, index) => (
-            <div key={index} className="flex flex-row items-center justify-center gap-2 mb-2">
+            <div key={index} className="flex flex-row sm:flex-col items-center justify-center gap-2">
               <div className="bg-gray-50 px-3 py-1 rounded-full text-sm font-medium text-gray-800" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                 {result.financialYear}
               </div>
