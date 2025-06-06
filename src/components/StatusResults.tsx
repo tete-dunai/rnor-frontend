@@ -20,9 +20,6 @@ const StatusResults = ({ results }: StatusResultsProps) => {
   };
 
   const getSpecialStyling = (status: string) => {
-    if (status === 'RNOR') {
-      return 'transform hover:scale-105 transition-all duration-300 relative z-10 text-lg font-bold tracking-wide shadow-md shadow-[#2EE3C680]';
-    }
     return 'hover:scale-105 transition-all duration-200';
   };
 
