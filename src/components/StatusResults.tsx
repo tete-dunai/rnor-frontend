@@ -49,13 +49,13 @@ const StatusResults = ({ results }: StatusResultsProps) => {
           {results.map((result, index) => (
             <div 
               key={index} 
-              className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 group"
+              className="flex flex-row items-center justify-between w-full max-w-xs mx-auto gap-3 group"
             >
-              <div className="text-xs font-semibold text-gray-800 uppercase tracking-wide mb-2 bg-gray-50 shadow-md px-4 py-2 rounded-full min-w-[100px] text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+              <div className="text-xs font-semibold text-gray-800 uppercase tracking-wide mb-2 bg-gray-50 shadow-md px-4 py-2 rounded-full min-w-[110px] text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                 {result.financialYear}
               </div>
               <div className={`
-                px-4 py-2 rounded-xl text-xs font-semibold tracking-wide cursor-pointer min-w-[100px] text-center
+                px-4 py-2 rounded-xl text-xs font-semibold tracking-wide cursor-pointer min-w-[90px] text-center
                 ${getStatusColor(result.status)} 
                 ${getSpecialStyling(result.status)}
               `}>
