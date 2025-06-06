@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Calculator, Clock } from 'lucide-react';
 import DateInput from '@/components/DateInput';
 import StatusResults from '@/components/StatusResults';
@@ -18,6 +18,17 @@ const Index = () => {
   const [error, setError] = useState<string>('');
   const resultsRef = useRef<HTMLDivElement>(null);
   const [inputsChanged, setInputsChanged] = useState(false);
+
+  useEffect(() => {
+    if (showResults && results.length > 0) {
+      setTimeout(() => {
+        const cta = document.getElementById('cta-button');
+        if (cta) {
+          cta.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+      }, 200);
+    }
+  }, [showResults, results]);
 
   const handleCalculate = async () => {
     if (!departureDate || !returnDate) {
@@ -57,9 +68,9 @@ const Index = () => {
       setResults(transformedResults);
       setShowResults(true);
       setInputsChanged(false);
-      setTimeout(() => {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-      }, 100);
+      // setTimeout(() => {
+      //   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      // }, 100);
     } catch (error) {
       console.error('Calculation failed:', error);
       setError('Please Retry after some Interval.');
@@ -172,7 +183,7 @@ setInputsChanged(true);
         {showResults && !isCalculating && (
           <div ref={resultsRef}>
             <StatusResults results={results} />
-            <div className="text-center mt-4">
+            <div id="cta-button" className="text-center mt-4">
               <p className="text-sm text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                 Please note this is an estimate basis your inputs and your exact travel history is required for exact calculations.
               </p>
