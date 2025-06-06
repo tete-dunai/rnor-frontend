@@ -29,22 +29,20 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      const timer = setTimeout(() => {
-        const el = yearInputRef.current;
-        if (el) el.focus();
+  if (isOpen) {
+    const timer = setTimeout(() => {
+      const el = yearInputRef.current;
+      if (el) el.focus();
 
-        if (window.innerWidth < 768 && wrapperRef.current) {
-         wrapperRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-setTimeout(() => {
-  window.scrollBy(0, -80); // scroll up slightly
-}, 300);
-        }
-      }, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
+      if (window.innerWidth < 768 && wrapperRef.current) {
+        const offset = 200;
+        const y = wrapperRef.current.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }
+}, [isOpen]);
 
   const isValidDate = (day: number, month: number, year: number): boolean => {
     if (month < 1 || month > 12) return false;
