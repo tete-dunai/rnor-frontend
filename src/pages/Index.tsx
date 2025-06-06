@@ -121,7 +121,7 @@ const Index = () => {
           <div>
             <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               <Clock className="w-4 h-4 text-[#8c8c8c]" />
-              Total days spent in India in the last 7 years
+              Average days stayed in India in past 7 years
             </label>
             <input
               type="number"
