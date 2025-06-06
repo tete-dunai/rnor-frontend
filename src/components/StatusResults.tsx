@@ -44,18 +44,21 @@ const StatusResults = ({ results }: StatusResultsProps) => {
         <p className="text-gray-600" style={{ fontFamily: 'Montserrat, sans-serif' }}>Financial year wise residential status calculation</p>
       </div>
 
-      <div className="table w-full max-w-xs mx-auto text-sm">
-        <div className="table-header-group font-semibold border-b border-gray-300">
-          <div className="table-row">
-            <div className="table-cell py-2">Financial Year</div>
-            <div className="table-cell py-2">Status</div>
-          </div>
-        </div>
-        <div className="table-row-group">
+      <div className="flex justify-center mb-7">
+        <div className="flex flex-wrap justify-center gap-x-3 gap-y-2">
           {results.map((result, index) => (
-            <div className="table-row border-b border-gray-100" key={index}>
-              <div className="table-cell py-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>{result.financialYear}</div>
-              <div className={`table-cell py-2 ${getStatusColor(result.status)} ${getSpecialStyling(result.status)}`}>
+            <div 
+              key={index} 
+              className="flex flex-row items-center justify-between w-full max-w-xs mx-auto gap-3 group"
+            >
+              <div className="text-xs font-semibold text-gray-800 uppercase tracking-wide mb-2 bg-gray-50 shadow-md px-4 py-2 rounded-full min-w-[110px] text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                {result.financialYear}
+              </div>
+              <div className={`
+                px-4 py-2 rounded-xl text-xs font-semibold tracking-wide cursor-pointer min-w-[90px] text-center
+                ${getStatusColor(result.status)} 
+                ${getSpecialStyling(result.status)}
+              `}>
                 <span className={result.status === 'RNOR' ? 'drop-shadow-md' : ''} style={{ fontFamily: 'Montserrat, sans-serif' }}>
                   {result.status === 'NR' ? 'NRI' : result.status}
                 </span>
