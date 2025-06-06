@@ -27,28 +27,23 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
   const [isOpen, setIsOpen] = useState(false);
   const yearInputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  
+useEffect(() => {
+  if (isOpen) {
+    const timer = setTimeout(() => {
+      const el = yearInputRef.current;
+      if (el) el.focus();
 
-  // ── Updated scroll-into-view logic for mobile ─────────────────────────────────
-  useEffect(() => {
-    if (isOpen) {
-      const timer = setTimeout(() => {
-        // Focus the year-input inside the calendar
-        const el = yearInputRef.current;
-        if (el) el.focus();
+      if (window.innerWidth < 768 && wrapperRef.current) {
+        const offset = 100;
+        const y = wrapperRef.current.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }, 100);
 
-        // Only on mobile screens (< 768px)
-        if (window.innerWidth < 768 && wrapperRef.current) {
-          // Calculate the Y position for the wrapperRef element, minus an offset
-          const offset = 100; // Adjust this value to leave more/less gap above
-          const y = wrapperRef.current.getBoundingClientRect().top + window.pageYOffset - offset;
-          window.scrollTo({ top: y, behavior: 'smooth' });
-        }
-      }, 100);
-
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
-  // ──────────────────────────────────────────────────────────────────────────────
+    return () => clearTimeout(timer);
+  }
+}, [isOpen]);
 
   const isValidDate = (day: number, month: number, year: number): boolean => {
     if (month < 1 || month > 12) return false;
@@ -94,18 +89,16 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
 
         const date = new Date(yearNum, monthNum - 1, dayNum);
 
-        if (
-          date.getFullYear() === yearNum &&
-          date.getMonth() === monthNum - 1 &&
-          date.getDate() === dayNum
-        ) {
+        if (date.getFullYear() === yearNum && 
+            date.getMonth() === monthNum - 1 && 
+            date.getDate() === dayNum) {
           return date;
         }
       }
     }
 
     if (dateString.trim()) {
-      setError('Invalid format. Use DD/MM/YYYY or select from calendar');
+      setError('Invalid format. Use DD MMM YYYY or CHOSE FROM CALENDAR');
     }
     return null;
   };
@@ -118,10 +111,10 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
       const parsedDate = parseDate(newValue);
       if (parsedDate) {
         onChange(parsedDate);
-        const calcBtn = document.getElementById('calculate-button');
-        if (calcBtn) calcBtn.classList.remove('hidden');
-        const resultDiv = document.getElementById('result');
-        if (resultDiv) resultDiv.classList.remove('hidden');
+        const calcBtn = document.getElementById("calculate-button");
+        if (calcBtn) calcBtn.classList.remove("hidden");
+        const resultDiv = document.getElementById("result");
+        if (resultDiv) resultDiv.classList.remove("hidden");
         setCurrentMonth(parsedDate);
       } else {
         onChange(null);
@@ -135,10 +128,10 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
   const handleCalendarSelect = (date: Date | undefined) => {
     if (date) {
       onChange(date);
-      const calcBtn = document.getElementById('calculate-button');
-      if (calcBtn) calcBtn.classList.remove('hidden');
-      const resultDiv = document.getElementById('result');
-      if (resultDiv) resultDiv.classList.remove('hidden');
+      const calcBtn = document.getElementById("calculate-button");
+      if (calcBtn) calcBtn.classList.remove("hidden");
+      const resultDiv = document.getElementById("result");
+      if (resultDiv) resultDiv.classList.remove("hidden");
       setInputValue('');
       setError('');
       setCurrentMonth(date);
@@ -167,30 +160,17 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
   };
 
   const handleYearNavigation = (direction: 'prev' | 'next') => {
-    const newYear =
-      direction === 'prev'
-        ? currentMonth.getFullYear() - 1
-        : currentMonth.getFullYear() + 1;
+    const newYear = direction === 'prev' ? currentMonth.getFullYear() - 1 : currentMonth.getFullYear() + 1;
     const newDate = new Date(newYear, currentMonth.getMonth(), 1);
     setCurrentMonth(newDate);
     setYearInput(newYear.toString());
   };
 
+
   return (
     <div ref={wrapperRef}>
-      <label
-        className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1 italic"
-        style={{ fontFamily: 'Montserrat, sans-serif' }}
-      >
-        <CalendarIcon
-          className={`w-4 h-4 ${
-            label === 'Return to India'
-              ? 'text-yellow-500'
-              : label === 'Departure from India'
-              ? 'text-[#8c8c8c]'
-              : 'text-blue-500'
-          }`}
-        />
+      <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1 italic" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+        <CalendarIcon className={`w-4 h-4 ${label === 'Return to India' ? 'text-yellow-500' : label === 'Departure from India' ? 'text-[#8c8c8c]' : 'text-blue-500'}`} />
         {label}
       </label>
       <div className="relative">
@@ -201,8 +181,8 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
               value={inputValue || (value ? format(value, 'dd MMM yyyy') : '')}
               placeholder={placeholder || 'DD MMM YYYY'}
               className={cn(
-                'w-full px-4 py-3 pr-12 rounded-lg border text-sm focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white cursor-pointer',
-                error ? 'border-red-300' : 'border-gray-200'
+                "w-full px-4 py-3 pr-12 rounded-lg border text-sm focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white cursor-pointer",
+                error ? "border-red-300" : "border-gray-200"
               )}
               disabled={disabled}
               onClick={() => {
@@ -226,7 +206,6 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
               <CalendarIcon className="h-4 w-4 text-gray-500" />
             </Button>
           </PopoverTrigger>
-
           <PopoverContent
             className="transform origin-top-left scale-[0.8] sm:scale-100 w-auto text-sm p-2 -ml-4 sm:ml-0 sm:text-base sm:p-3"
             side="bottom"
@@ -236,9 +215,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
               const active = document.activeElement;
               if (active?.tagName === 'INPUT') return;
 
-              if (
-                ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)
-              ) {
+              if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
                 e.preventDefault();
                 e.stopPropagation();
 
@@ -255,7 +232,7 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                   variant="outline"
                   size="sm"
                   onClick={() => handleYearNavigation('prev')}
-                  className="h-6 w-6 p-0 sm:h-8 sm:w-8"
+                  className="h-8"
                 >
                   <ChevronUp className="h-4 w-4" />
                 </Button>
@@ -273,14 +250,8 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                       e.preventDefault();
                       e.stopPropagation();
                       setTimeout(() => {
-                        const gridcells = document.querySelectorAll(
-                          '[role="gridcell"]:not([aria-disabled="true"])'
-                        );
-                        const firstVisibleDay = Array.from(
-                          gridcells
-                        ).find(
-                          (cell) => cell.textContent?.trim() === '1'
-                        ) as HTMLElement;
+                        const gridcells = document.querySelectorAll('[role="gridcell"]:not([aria-disabled="true"])');
+                        const firstVisibleDay = Array.from(gridcells).find(cell => cell.textContent?.trim() === '1') as HTMLElement;
                         if (firstVisibleDay) firstVisibleDay.focus();
                       }, 50);
                     }
@@ -291,38 +262,33 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
                   variant="outline"
                   size="sm"
                   onClick={() => handleYearNavigation('next')}
-                  className="h-6 w-6 p-0 sm:h-8 sm:w-8"
+                  className="h-8"
                 >
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </div>
-
               <div className="flex items-center justify-between gap-2 mt-2">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => handleMonthNavigation('prev')}
-                  className="h-6 w-6 p-0 sm:h-8 sm:w-8"
+                  className="h-8"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
-                <div
-                  className="text-sm sm:text-base font-medium w-20 sm:w-24 text-center"
-                  style={{ fontFamily: 'Montserrat, sans-serif' }}
-                >
+                <div className="text-sm sm:text-base font-medium w-20 sm:w-24 text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                   {format(currentMonth, 'MMMM')}
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => handleMonthNavigation('next')}
-                  className="h-6 w-6 p-0 sm:h-8 sm:w-8"
+                  className="h-8"
                 >
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               </div>
             </div>
-
             <Calendar
               mode="single"
               selected={value || undefined}
@@ -330,19 +296,17 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
               month={currentMonth}
               onMonthChange={setCurrentMonth}
               initialFocus
-              className={cn('p-2 sm:p-3 pointer-events-auto')}
+              className={cn("p-3 pointer-events-auto")}
               components={{
-                Caption: () => null,
+                Caption: () => null
               }}
               classNames={{
-                day:
-                  'w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-md text-gray-400 \
+                day: "w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-md text-gray-400 \
 hover:bg-[#0f172a] hover:text-white \
 focus:outline-none focus:ring-0 \
-data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-md data-[selected]:font-medium',
+data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-md data-[selected]:font-medium"
               }}
             />
-
             <div className="flex justify-end p-3 pt-0">
               <Button
                 variant="default"
@@ -357,7 +321,6 @@ data-[selected]:bg-[#0c111d] data-[selected]:text-white data-[selected]:rounded-
           </PopoverContent>
         </Popover>
       </div>
-
       {error && (
         <p className="text-red-500 text-xs mt-1">
           {error}
