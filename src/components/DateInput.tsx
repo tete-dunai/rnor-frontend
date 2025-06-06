@@ -35,8 +35,8 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
         if (el) el.focus();
 
         if (window.innerWidth < 768 && wrapperRef.current) {
-          const inputTop = wrapperRef.current.getBoundingClientRect().top + window.scrollY;
-window.scrollTo({ top: inputTop - 80, behavior: 'smooth' });
+          const scrollTarget = wrapperRef.current.offsetTop - 80;
+window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
         }
       }, 100);
       return () => clearTimeout(timer);
