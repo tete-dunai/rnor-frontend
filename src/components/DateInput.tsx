@@ -35,11 +35,16 @@ const DateInput = ({ label, value, onChange, placeholder, disabled = false }: Da
       if (el) el.focus();
 
       if (window.innerWidth < 768 && wrapperRef.current) {
-        const offset = 200;
-        const y = wrapperRef.current.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+        // First, scroll element into view
+        wrapperRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Then scroll up slightly to leave visible space above input
+        setTimeout(() => {
+          window.scrollBy(0, -500); // Adjust value to control spacing
+        }, 300); // Wait for scrollIntoView to finish
       }
     }, 100);
+
     return () => clearTimeout(timer);
   }
 }, [isOpen]);
