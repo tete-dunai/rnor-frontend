@@ -24,7 +24,7 @@ const Index = () => {
       setTimeout(() => {
         const cta = document.getElementById('cta-button');
         if (cta) {
-          cta.scrollIntoView({ behavior: 'smooth', block: 'center'});
+          cta.scrollIntoView({ behavior: 'smooth', block: 'end'});
         }
       }, 200);
     }
