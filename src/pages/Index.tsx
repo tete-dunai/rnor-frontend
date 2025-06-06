@@ -24,7 +24,7 @@ const Index = () => {
       setTimeout(() => {
         const cta = document.getElementById('cta-button');
         if (cta) {
-          cta.scrollIntoView({ behavior: 'smooth', block: 'end'});
+          cta.scrollIntoView({ behavior: 'smooth', block: 'center'});
         }
       }, 200);
     }
@@ -198,7 +198,6 @@ setInputsChanged(true);
               >
                 Talk to a Cross-Border Advisor
               </a>
-              <div className="block sm:hidden h-5"></div>
             </div>
           </div>
         )}
