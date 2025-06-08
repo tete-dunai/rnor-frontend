@@ -86,18 +86,13 @@ const Index = () => {
       <div className="scale-[0.85] origin-top-left w-[117.6%] overflow-hidden sm:scale-100 sm:w-full">
         <div className="max-w-6xl mx-auto">
 <div className="text-center mb-6">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
-              <Calculator className="w-8 h-8 text-white" />
-            </div>
-            <h1
-              className="text-3xl font-semibold text-[#1dc9a9]"
-              style={{ fontFamily: 'Montserrat, sans-serif' }}
-            >
-              RNOR Status Calculator
-            </h1>
-          </div>
-        </div>
+  <h1
+    className="text-3xl font-semibold text-[#1dc9a9]"
+    style={{ fontFamily: 'Montserrat, sans-serif' }}
+  >
+    RNOR Status Calculator
+  </h1>
+</div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
           <DateInput
