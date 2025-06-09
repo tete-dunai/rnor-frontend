@@ -96,7 +96,7 @@ const Index = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
           <DateInput
-            label="Departure from India"
+            label={<span className="not-italic" style={{ fontFamily: 'Montserrat, sans-serif' }}>Departure from India</span>}
             value={departureDate}
             onChange={(date) => {
               setDepartureDate(date);
@@ -105,7 +105,7 @@ const Index = () => {
             placeholder="DD MMM YYYY"
           />
           <DateInput
-            label="Return to India"
+            label={<span className="not-italic" style={{ fontFamily: 'Montserrat, sans-serif' }}>Return to India</span>}
             value={returnDate}
             onChange={(date) => {
               setReturnDate(date);
