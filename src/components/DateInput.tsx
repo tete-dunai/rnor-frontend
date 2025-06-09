@@ -12,9 +12,17 @@ interface DateInputProps {
   onChange: (date: Date | null) => void;
   placeholder?: string;
   disabled?: boolean;
+  iconColor?: string; // new optional prop
 }
 
-const DateInput = ({ label, value, onChange, placeholder, disabled = false }: DateInputProps) => {
+const DateInput = ({
+  label,
+  value,
+  onChange,
+  placeholder,
+  disabled = false,
+  iconColor,
+}: DateInputProps) => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState('');
   const [currentMonth, setCurrentMonth] = useState(() => {
@@ -171,8 +179,19 @@ useEffect(() => {
 
   return (
     <div ref={wrapperRef}>
-      <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1 italic" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-        <CalendarIcon className={`w-4 h-4 ${label === 'Return to India' ? 'text-yellow-500' : label === 'Departure from India' ? 'text-[#8c8c8c]' : 'text-blue-500'}`} />
+      <label
+        className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1 italic"
+        style={{ fontFamily: 'Montserrat, sans-serif' }}
+      >
+        <CalendarIcon
+          className={`w-4 h-4 ${iconColor ? iconColor : 
+            label === 'Return to India'
+              ? 'text-yellow-500'
+              : label === 'Departure from India'
+              ? 'text-[#8c8c8c]'
+              : 'text-blue-500'
+          }`}
+        />
         {label}
       </label>
       <div className="relative">
