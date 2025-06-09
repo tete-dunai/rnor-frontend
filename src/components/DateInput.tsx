@@ -190,7 +190,10 @@ useEffect(() => {
               disabled={disabled}
               onClick={() => {
                 if (disabled) return;
-                if (onChange.toString().includes('setRnorsMessage')) return; // disables calendar if result shown
+                if (onChange.toString().includes('setRnorsMessage')) return;
+                if (label === 'Departure from India' && !value) {
+                  setCurrentMonth(new Date(2000, 3)); // April 2000
+                }
                 setIsOpen(true);
               }}
               onChange={handleInputChange}
