@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils';
 
 interface DateInputProps {
   label: string | React.ReactNode;
-  fieldType?: string; // ADD THIS NEW PROP
   value: Date | null;
   onChange: (date: Date | null) => void;
   placeholder?: string;
@@ -16,12 +15,11 @@ interface DateInputProps {
   icon?: React.ReactNode;
 }
 
-const DateInput = ({ label, fieldType, value, onChange, placeholder, disabled = false, icon }: DateInputProps) => {
+const DateInput = ({ label, value, onChange, placeholder, disabled = false, icon }: DateInputProps) => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState('');
   const [currentMonth, setCurrentMonth] = useState(() => {
-    // USE fieldType INSTEAD OF label
-    if (fieldType === 'departure' && !value) {
+    if (typeof label === 'object' && label?.props?.children === 'Departure from India' && !value) {
       return new Date(2000, 3); // April is month index 3
     }
     return value || new Date();
@@ -175,7 +173,11 @@ useEffect(() => {
   return (
     <div ref={wrapperRef}>
       <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1 italic" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-        {icon || <CalendarIcon className={`w-4 h-4 ${fieldType === 'return' ? 'text-yellow-500' : fieldType === 'departure' ? 'text-[#8c8c8c]' : 'text-blue-500'}`} />}
+        {icon || <CalendarIcon className={`w-4 h-4 ${
+          typeof label === 'object' && label?.props?.children === 'Return to India' ? 'text-yellow-500' : 
+          typeof label === 'object' && label?.props?.children === 'Departure from India' ? 'text-[#8c8c8c]' : 
+          'text-blue-500'
+        }`} />}
         {label}
       </label>
       <div className="relative">
@@ -193,8 +195,7 @@ useEffect(() => {
               onClick={() => {
                 if (disabled) return;
                 if (onChange.toString().includes('setRnorsMessage')) return;
-                // USE fieldType INSTEAD OF label
-                if (fieldType === 'departure' && !value) {
+                if (typeof label === 'object' && label?.props?.children === 'Departure from India' && !value) {
                   setCurrentMonth(new Date(2000, 3)); // April 2000
                 }
                 setIsOpen(true);
