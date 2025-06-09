@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Calculator, Clock } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import DateInput from '@/components/DateInput';
 import StatusResults from '@/components/StatusResults';
 import { calculateRNORStatus } from '@/utils/apiService';
@@ -103,6 +104,7 @@ const Index = () => {
               setInputsChanged(true);
             }}
             placeholder="DD MMM YYYY"
+            icon={<Calendar className="w-4 h-4 text-[#8c8c8c]" />}
           />
           <DateInput
             label={<span className="not-italic" style={{ fontFamily: 'Montserrat, sans-serif' }}>Return to India</span>}
@@ -112,6 +114,7 @@ const Index = () => {
               setInputsChanged(true);
             }}
             placeholder="DD MMM YYYY"
+            icon={<Calendar className="w-4 h-4 text-[#f5b000]" />}
           />
           <div>
             <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
