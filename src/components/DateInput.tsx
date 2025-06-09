@@ -297,7 +297,7 @@ useEffect(() => {
             </div>
             <Calendar
               mode="single"
-              selected={value || undefined}
+              selected={value === null ? undefined : value}
               onSelect={handleCalendarSelect}
               month={currentMonth}
               onMonthChange={setCurrentMonth}
