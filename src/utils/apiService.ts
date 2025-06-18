@@ -1,4 +1,3 @@
-
 interface CalculationRequest {
   departure: string;
   return: string;
@@ -17,7 +16,7 @@ interface CalculationResponse {
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://mukundlahoty.pythonanywhere.com/';
 
-export const calculateRNORStatus = async (data: CalculationRequest): Promise<FYData[]> => {
+export const calculateRNORStatus = async (data: CalculationRequest): Promise<any> => {
   try {
     const response = await fetch(`${API_BASE_URL}/calculate`, {
       method: 'POST',
@@ -28,20 +27,22 @@ export const calculateRNORStatus = async (data: CalculationRequest): Promise<FYD
       body: JSON.stringify(data),
     });
 
+    const result = await response.json();
+
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      return {
+        status: 'error',
+        message: result.message || 'Something went wrong.',
+      };
     }
 
-    const result: CalculationResponse = await response.json();
-    
-    if (result.status === 'success') {
-      return result.output;
-    } else {
-      throw new Error('Backend calculation failed');
-    }
+    return result;
   } catch (error) {
     console.error('API call failed:', error);
-    throw error;
+    return {
+      status: 'error',
+      message: 'Please retry after some interval.',
+    };
   }
 };
 
