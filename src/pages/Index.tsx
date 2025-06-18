@@ -62,6 +62,12 @@ const Index = () => {
 
       const apiResults = await calculateRNORStatus(requestData);
 
+      if (apiResults.status === "error") {
+        setError(apiResults.message || "Something went wrong.");
+        setShowResults(false);
+        return;
+      }
+
       const transformedResults = apiResults.map(item => ({
         financialYear: item.fy,
         status: item.status
