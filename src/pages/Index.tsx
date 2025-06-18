@@ -68,7 +68,7 @@ const Index = () => {
         return;
       }
 
-      const transformedResults = apiResults.map(item => ({
+      const transformedResults = apiResults.output.map((item: any) => ({
         financialYear: item.fy,
         status: item.status
       }));
