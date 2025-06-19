@@ -155,12 +155,12 @@ setInputsChanged(true);
         </div>
 
         {error && (
-          <div className="text-center mb-6">
-            <p className="text-red-500 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
-              {error}
-            </p>
-          </div>
-        )}
+  <div className="text-center mb-6">
+    <p className="text-yellow-800 bg-yellow-50 border border-yellow-200 rounded-xl px-4 py-3 text-sm">
+      {error}
+    </p>
+  </div>
+)}
 
         <div
           className={`text-center transition-all duration-300 ease-in-out ${
