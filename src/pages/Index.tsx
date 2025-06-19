@@ -156,7 +156,7 @@ setInputsChanged(true);
 
        {error && (
   <div className="flex justify-center mb-6">
-    <p className="inline-block text-[#1dc9a9] bg-[#e6f9f6] border border-[#baf0e6] rounded-xl px-4 py-2 text-sm text-center">
+    <p className="inline-block text-gray-800 bg-gray-100 border border-gray-300 rounded-xl px-4 py-2 text-sm text-center shadow-[0_2px_6px_rgba(0,0,0,0.06)]">
       {error}
     </p>
   </div>
