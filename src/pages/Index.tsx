@@ -154,9 +154,9 @@ setInputsChanged(true);
             </div>
         </div>
 
-        {error && (
+       {error && (
   <div className="text-center mb-6">
-    <p className="text-yellow-800 bg-yellow-50 border border-yellow-200 rounded-xl px-4 py-3 text-sm">
+    <p className="text-orange-800 bg-orange-50 border border-orange-200 rounded-xl px-4 py-3 text-sm">
       {error}
     </p>
   </div>
