@@ -172,7 +172,7 @@ setInputsChanged(true);
           <button
             onClick={handleCalculate}
             disabled={isCalculating}
-            className="bg-[#2EE3C6] text-black px-6 py-3 rounded-full font-bold text-base shadow-xl hover:bg-[#29d1b6] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
+            className="bg-[#2EE3C6] text-black px-6 py-3 rounded-full font-bold text-base shadow-none hover:bg-[#29d1b6] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
             style={{ fontFamily: 'Montserrat, sans-serif' }}
           >
             {isCalculating ? (
