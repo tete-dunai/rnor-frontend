@@ -16,7 +16,7 @@ interface CalculationResponse {
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://mukundlahoty.pythonanywhere.com/';
 
-export const calculateRNORStatus = async (data: CalculationRequest): Promise<any> => {
+export const calculateRNORStatus = async (data: CalculationRequest): Promise<FYData[]> => {
   try {
     const response = await fetch(`${API_BASE_URL}/calculate`, {
       method: 'POST',
@@ -27,22 +27,20 @@ export const calculateRNORStatus = async (data: CalculationRequest): Promise<any
       body: JSON.stringify(data),
     });
 
-    const result = await response.json();
-
     if (!response.ok) {
-      return {
-        status: 'error',
-        message: result.message || 'Something went wrong.',
-      };
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-
-    return result;
+const result: CalculationResponse = await response.json();Add commentMore actions
+    
+    if (result.status === 'success') {
+      return result.output;
+    } else {
+      throw new Error('Backend calculation failed');
+    }
+    
   } catch (error) {
     console.error('API call failed:', error);
-    return {
-      status: 'error',
-      message: 'Please retry after some interval.',
-    };
+    throw error;
   }
 };
 
