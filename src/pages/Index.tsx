@@ -89,7 +89,7 @@ const Index = () => {
       const endFY = fyStartYear(returnDate);
       const fyCount = endFY - startFY + 1;
       if (fyCount < 7) {
-        return "Total days spent in India while you were abroad";
+        return "Total days spent in India while you were Abroad";
       }
     }
     return "Total days spent in India in the last 7 years";
