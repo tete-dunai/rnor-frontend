@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { Calculator, Clock } from 'lucide-react';
 import { Calendar } from 'lucide-react';
 import DateInput from '@/components/DateInput';
@@ -82,18 +82,25 @@ const Index = () => {
     }
   };
 
-  const getIndiaDaysLabel = () => {
+  const { indiaDaysLabel, placeholderValue } = useMemo(() => {
     if (departureDate && returnDate) {
-      const fyStartYear = (date: Date) => (date.getMonth() + 1 >= 4 ? date.getFullYear() : date.getFullYear() - 1);
+      const fyStartYear = (date: Date) =>
+        (date.getMonth() + 1 >= 4 ? date.getFullYear() : date.getFullYear() - 1);
       const startFY = fyStartYear(departureDate);
       const endFY = fyStartYear(returnDate);
       const fyCount = endFY - startFY + 1;
       if (fyCount < 7) {
-        return "Total days spent in India while you were Abroad";
+        return {
+          indiaDaysLabel: "Total days spent in India while you were abroad",
+          placeholderValue: "50",
+        };
       }
     }
-    return "Total days spent in India in the last 7 years";
-  };
+    return {
+      indiaDaysLabel: "Total days spent in India in the last 7 years",
+      placeholderValue: "250",
+    };
+  }, [departureDate, returnDate]);
 
   return (
     <div className="min-h-screen bg-white p-6 pb-2 md:pb-2 overflow-hidden">
@@ -132,7 +139,7 @@ const Index = () => {
           <div>
             <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               <Clock className="w-4 h-4 text-[#8c8c8c]" />
-              {getIndiaDaysLabel()}
+              {indiaDaysLabel}
             </label>
             <input
               type="number"
@@ -156,7 +163,7 @@ const Index = () => {
 }}
               onWheel={(e) => e.currentTarget.blur()} // disables mouse-wheel changes
               className="w-full px-4 py-3 text-sm rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#1dc9a9] focus:border-transparent focus:outline-none transition-all bg-white"
-              placeholder="250"
+              placeholder={placeholderValue}
  />
             </div>
         </div>
