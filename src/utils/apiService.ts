@@ -30,7 +30,7 @@ export const calculateRNORStatus = async (data: CalculationRequest): Promise<FYD
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-const result: CalculationResponse = await response.json();Add commentMore actions
+const result: CalculationResponse = await response.json();
     
     if (result.status === 'success') {
       return result.output;
