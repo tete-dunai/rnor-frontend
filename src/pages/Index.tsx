@@ -62,7 +62,7 @@ const Index = () => {
 
       const apiResults = await calculateRNORStatus(requestData);
 
-      const transformedResults = apiResults.output.map((item: any) => ({
+      const transformedResults = apiResults.map (item => ({
         financialYear: item.fy,
         status: item.status
       }));
