@@ -82,6 +82,19 @@ const Index = () => {
     }
   };
 
+  const getIndiaDaysLabel = () => {
+    if (departureDate && returnDate) {
+      const fyStartYear = (date: Date) => (date.getMonth() + 1 >= 4 ? date.getFullYear() : date.getFullYear() - 1);
+      const startFY = fyStartYear(departureDate);
+      const endFY = fyStartYear(returnDate);
+      const fyCount = endFY - startFY + 1;
+      if (fyCount < 7) {
+        return "Total days spent in India while you were abroad";
+      }
+    }
+    return "Total days spent in India in the last 7 years";
+  };
+
   return (
     <div className="min-h-screen bg-white p-6 pb-2 md:pb-2 overflow-hidden">
       <div className="scale-[0.85] origin-top-left w-[117.6%] overflow-hidden sm:scale-100 sm:w-full">
@@ -119,7 +132,7 @@ const Index = () => {
           <div>
             <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               <Clock className="w-4 h-4 text-[#8c8c8c]" />
-              Total days spent in India in the last 7 years
+              {getIndiaDaysLabel()}
             </label>
             <input
               type="number"
