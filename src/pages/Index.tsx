@@ -91,7 +91,7 @@ const Index = () => {
       const fyCount = endFY - startFY + 1;
       if (fyCount < 7) {
         return {
-          indiaDaysLabel: "Total days spent in India while you were abroad",
+          indiaDaysLabel: "Total days spent in India while you were Abroad",
           placeholderValue: "50",
         };
       }
