@@ -143,7 +143,7 @@ const Index = () => {
                 if (val >= 0 || e.target.value === '') {
                   setAverageIndiaDays(e.target.value === '' ? null : val);
                 }
-setInputsChanged(true);
+                setInputsChanged(true);
               }}
               onKeyDown={(e) => {
                 // Block Arrow-Down when value would become negative
